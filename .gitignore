@@ -14,7 +14,6 @@ node_modules/
 # env
 .env
 .env.production
-.env
 .env.development
 
 # logs
@@ -29,9 +28,6 @@ lerna-debug.log*
 # misc
 .DS_Store
 
-# ide
-/.idea
-
 # lock files
-../../../Downloads/micro-auth-master/micro-auth-master/deno.lock
+deno.lock
 package-lock.json
