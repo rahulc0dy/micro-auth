@@ -33,5 +33,5 @@ lerna-debug.log*
 /.idea
 
 # lock files
-deno.lock
+../../../Downloads/micro-auth-master/micro-auth-master/deno.lock
 package-lock.json
