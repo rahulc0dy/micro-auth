@@ -31,3 +31,7 @@ lerna-debug.log*
 
 # ide
 /.idea
+
+# lock files
+deno.lock
+package-lock.json
