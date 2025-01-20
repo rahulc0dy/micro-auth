@@ -6,14 +6,13 @@
     <img src="https://github.com/rahulc0dy/micro-auth/actions/workflows/tests/badge.svg" alt="Tests">
   </a>
 -->
-  <a href="">
+  <a href="https://github.com/rahulc0dy/micro-auth/issues">
     <img src="https://img.shields.io/github/issues/rahulc0dy/micro-auth" alt="Deno Version">
   </a>
-  <a href="">
-    <img src="https://img.shields.io/github/actions/workflow/status/rahulc0dy/micro-auth/tests
-" alt="Deno Version">
+  <a href="https://github.com/rahulc0dy/micro-auth/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/rahulc0dy/micro-auth/tests.yml" alt="Workflow Status">
   </a>
-  <a href="">
+  <a href="https://github.com/rahulc0dy/micro-auth/releases">
     <img src="https://img.shields.io/badge/1.0.0-teal?label=version" alt="Deno Version">
   </a>
   <a href="https://github.com/rahulc0dy/micro-auth">
