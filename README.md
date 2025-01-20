@@ -1,20 +1,26 @@
 <div align="center">
   <img src="https://placehold.co/60x60" alt="Authentication Microservice Logo" style="width:150px;height:150px;border-radius:100%;padding: 10px">
 <br>
-
-  <a href="https://github.com/rahulc0dy/auth-microservice/actions">
-    <img src="https://img.shields.io/badge/tests-passing-brightgreen" alt="Tests Passing">
+<!--
+  <a href="https://github.com/rahulc0dy/micro-auth/actions">
+    <img src="https://github.com/rahulc0dy/micro-auth/actions/workflows/tests/badge.svg" alt="Tests">
   </a>
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/license-MIT-blue" alt="License">
+-->
+  <a href="">
+    <img src="https://img.shields.io/github/issues/rahulc0dy/micro-auth" alt="Deno Version">
   </a>
-  <a href="https://deno.land/">
-    <img src="https://img.shields.io/badge/deno-v1.30+-informational" alt="Deno Version">
+  <a href="">
+    <img src="https://img.shields.io/github/actions/workflow/status/rahulc0dy/micro-auth/tests
+" alt="Deno Version">
   </a>
-  <a href="https://github.com/your-username/auth-microservice/stargazers">
-    <img src="https://img.shields.io/github/stars/your-username/auth-microservice" alt="GitHub Stars">
+  <a href="">
+    <img src="https://img.shields.io/badge/1.0.0-teal?label=version" alt="Deno Version">
+  </a>
+  <a href="https://github.com/rahulc0dy/micro-auth">
+    <img src="https://img.shields.io/github/stars/rahulc0dy/micro-auth" alt="GitHub Stars">
   </a>
 </div>
+
 
 # Authentication Microservice
 
@@ -54,8 +60,8 @@ A robust authentication microservice built with [Deno](https://deno.land/) and [
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/auth-microservice.git
-   cd auth-microservice
+   git clone https://github.com/rahulc0dy/micro-auth.git
+   cd micro-auth
    ```
 
 2. **Install dependencies:**
