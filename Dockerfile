@@ -2,7 +2,7 @@
 FROM denoland/deno:alpine-1.37.0
 
 # Set the working directory inside the container
-WORKDIR .
+WORKDIR /app
 
 # Copy the necessary files into the container
 COPY . .
