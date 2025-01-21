@@ -12,10 +12,10 @@ LABEL maintainer="your-email@example.com" \
 COPY . .
 
 # Set environment variables (if needed)
-ENV PORT=8000
+ENV PORT=8000 NODE_ENV="production"
 
 # Cache and download Deno dependencies
-RUN deno cache src/app.ts
+RUN deno cache src/index.ts
 
 # Create and use non-root user
 RUN addgroup -S deno && adduser -S deno -G deno
