@@ -77,7 +77,7 @@ When submitting a pull request:
 - Make sure the pull request is up-to-date with the main branch to avoid merge conflicts.
 
 ### Code of Conduct
-Please be respectful and considerate to everyone participating in the Micro-Auth project. We expect all contributors to follow the [Code of Conduct](https://github.com/rahulc0dy/micro-auth).
+Please be respectful and considerate to everyone participating in the Micro-Auth project. We expect all contributors to follow the [Code of Conduct](https://github.com/rahulc0dy/micro-auth/blob/main/.github/CODE_OF_CONDUCT.md).
 
 ### Development Setup
 To get started with development on Micro-Auth, follow these instructions:
