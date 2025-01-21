@@ -5,7 +5,7 @@
 Thank you for helping us improve the security of **Micro-Auth**. If you find a vulnerability in the project, please follow these steps to report it:
 
 1. **Contact Us**:
-    - Email **[codyrahulop@gmail.com]** with details of the vulnerability.
+    - Email codyrahulop [at] gmail [dot] com with details of the vulnerability.
     - Use the subject line: `Security Vulnerability Report`.
 
 2. **Provide the Following Information**:
