@@ -1,15 +1,11 @@
-import { describe, it } from "jsr:@std/testing/bdd";
+import { describe, test } from "jsr:@std/testing/bdd";
 import { expect } from "jsr:@std/expect";
-import { add } from "./add.ts";
+import app from "../src/app.ts";
 
-describe("add function", () => {
-    it("adds two numbers correctly", () => {
-        const result = add(2, 3);
-        expect(result).toBe(5);
-    });
-
-    it("handles negative numbers", () => {
-        const result = add(-2, -3);
-        expect(result).toBe(-5);
-    });
+describe("App creation.", () => {
+    test('GET /health-check/server', async () => {
+        const res = await app.request('/api/v1/health-check/server')
+        expect(res.status).toBe(200)
+        expect(await res.json()).toEqual({status:'Server running.'});
+    })
 });
