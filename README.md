@@ -1,19 +1,11 @@
 <div align="center">
-  <img src="https://placehold.co/60x60" alt="Authentication Microservice Logo" style="width:150px;height:150px;border-radius:100%;padding: 10px">
-<br>
-<!--
-  <a href="https://github.com/rahulc0dy/micro-auth/actions">
-    <img src="https://github.com/rahulc0dy/micro-auth/actions/workflows/tests/badge.svg" alt="Tests">
-  </a>
--->
-  <a href="https://github.com/rahulc0dy/micro-auth/issues">
-    <img src="https://img.shields.io/github/issues/rahulc0dy/micro-auth" alt="Deno Version">
-  </a>
-  <a href="https://github.com/rahulc0dy/micro-auth/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/rahulc0dy/micro-auth/tests.yml" alt="Workflow Status">
-  </a>
+  <img src="media/logo.png" alt="Authentication Microservice Logo" style="padding:10px" width="200">
+  <br>
   <a href="https://github.com/rahulc0dy/micro-auth/releases">
     <img src="https://img.shields.io/badge/1.0.0-teal?label=version" alt="Deno Version">
+  </a>
+  <a href="https://github.com/rahulc0dy/micro-auth/issues">
+    <img src="https://img.shields.io/github/issues/rahulc0dy/micro-auth" alt="Deno Version">
   </a>
   <a href="https://github.com/rahulc0dy/micro-auth">
     <img src="https://img.shields.io/github/stars/rahulc0dy/micro-auth" alt="GitHub Stars">
@@ -24,6 +16,10 @@
 # Authentication Microservice
 
 A robust authentication microservice built with [Deno](https://deno.land/) and [Hono.js](https://hono.dev/). This microservice provides essential authentication features, including support for **JWT**, **OAuth**, **email/phone-password login**, and **two-factor authentication (2FA)**.
+
+---
+
+![Tests](https://img.shields.io/github/actions/workflow/status/rahulc0dy/micro-auth/run-tests.yml)
 
 ---
 
@@ -38,20 +34,20 @@ A robust authentication microservice built with [Deno](https://deno.land/) and [
 
 ## 📋 Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Setup](#setup)
-- [Environment Variables](#environment-variables)
-- [API Endpoints](#api-endpoints)
-- [Usage](#usage)
-- [Technologies Used](#technologies-used)
-- [License](#license)
+- [Prerequisites](#-prerequisites)
+- [Setup](#-setup)
+- [Environment Variables](#-environment-variables)
+- [API Endpoints](#-api-endpoints)
+- [Usage](#-usage)
+- [Technologies Used](#-technologies-used)
+- [License](#-license)
 
 ---
 
 ## ✅ Prerequisites
 
 - [Deno](https://deno.land/) (v1.30 or higher)
-- Node.js (for setting up OAuth credentials, optional)
+- [Git](https://git-scm.com/) (v2.0 or higher)
 
 ---
 
