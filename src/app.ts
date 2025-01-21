@@ -5,5 +5,4 @@ const app = new Hono();
 
 registerV1Routes(app)
 
-
 export default app;
