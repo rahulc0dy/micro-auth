@@ -12,14 +12,14 @@
   </a>
 </div>
 
-
 # Authentication Microservice
 
 A robust authentication microservice built with [Deno](https://deno.land/) and [Hono.js](https://hono.dev/). This microservice provides essential authentication features, including support for **JWT**, **OAuth**, **email/phone-password login**, and **two-factor authentication (2FA)**.
 
 ---
 
-![Tests](https://img.shields.io/github/actions/workflow/status/rahulc0dy/micro-auth/run-tests.yml)
+[![Test App](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml)
+
 
 ---
 
@@ -46,7 +46,7 @@ A robust authentication microservice built with [Deno](https://deno.land/) and [
 
 ## ✅ Prerequisites
 
-- [Deno](https://deno.land/) (v1.30 or higher)
+- [Deno](https://deno.land/) (v2.0 or higher)
 - [Git](https://git-scm.com/) (v2.0 or higher)
 
 ---
@@ -58,15 +58,19 @@ A robust authentication microservice built with [Deno](https://deno.land/) and [
    git clone https://github.com/rahulc0dy/micro-auth.git
    cd micro-auth
    ```
+   
+2. **Setup environment variables:**
+   
+    Set up your environment variables as shown in the [_Environment Variables_](#-Environment-Variables) section.<br><br>
 
-2. **Install dependencies:**
+3. **Install dependencies:**
    ```bash
    deno task deps
    ```
 
-3. **Run the application:**
+4. **Run the application in dev mode:**
    ```bash
-   deno task start
+   deno task dev
    ```
 
 ---
@@ -135,27 +139,27 @@ Create a `.env` file in the root of your project with variables specified in the
 
 ### Register a New User
 ```bash
-curl -X POST http://localhost:8000/auth/register \
+curl -X POST http://localhost:<PORT>/auth/register \
 -H "Content-Type: application/json" \
 -d '{ "email": "user@example.com", "password": "securepassword" }'
 ```
 
 ### Login
 ```bash
-curl -X POST http://localhost:8000/auth/login \
+curl -X POST http://localhost:<PORT>/auth/login \
 -H "Content-Type: application/json" \
 -d '{ "email": "user@example.com", "password": "securepassword" }'
 ```
 
 ### Set Up 2FA
 ```bash
-curl -X POST http://localhost:8000/auth/2fa/setup \
+curl -X POST http://localhost:<PORT>/auth/2fa/setup \
 -H "Authorization: Bearer <JWT_TOKEN>"
 ```
 
 ### Verify 2FA Code
 ```bash
-curl -X POST http://localhost:8000/auth/2fa/verify \
+curl -X POST http://localhost:<PORT>/auth/2fa/verify \
 -H "Authorization: Bearer <JWT_TOKEN>" \
 -d '{ "otp": "123456" }'
 ```
@@ -175,3 +179,8 @@ curl -X POST http://localhost:8000/auth/2fa/verify \
 ## 📜 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+We welcome contributions to make Authentication Microservice better for everyone.
+Please review our [Contributing Guidelines](https://github.com/rahulc0dy/micro-auth/blob/master/docs/CONTRIBUTING.md) to get started.
