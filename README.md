@@ -61,7 +61,7 @@ A robust authentication microservice built with [Deno](https://deno.land/) and [
    
 2. **Setup environment variables:**
    
-    Set up your environment variables as shown in the [_Environment Variables_](#-Environment-Variables) section.<br><br>
+    Set up your environment variables as shown in the [_Environment Variables_](#️-environment-variables) section.<br><br>
 
 3. **Install dependencies:**
    ```bash

@@ -91,7 +91,7 @@ To get started with development on Micro-Auth, follow these instructions:
 2. Install the dependencies.
 
     ```bash
-    deno task dep
+    deno task deps
     ```
 3. Set up the environment variables as shown in the `.env.example` file   
 
