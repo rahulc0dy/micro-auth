@@ -61,23 +61,23 @@ We love code contributions! To submit code, please follow these steps:
 
     ```bash
     git add .
-    git commit -m "Add feature: description of your feature"
+    git commit -m "feat(feature-name): description of your feature"
     ```
 7. Push your branch to your fork.
 
     ```bash
     git push origin feature/your-feature-name
     ```
-8. Open a pull request against the main branch of the Micro-Auth repository.
+8. Open a pull request against the master branch of the Micro-Auth repository.
 
 When submitting a pull request:
 
 - Provide a detailed description of what your changes do.
 - Reference any related issues with #issue-number (e.g., Closes #123).
-- Make sure the pull request is up-to-date with the main branch to avoid merge conflicts.
+- Make sure the pull request is up-to-date with the master branch to avoid merge conflicts.
 
 ### Code of Conduct
-Please be respectful and considerate to everyone participating in the Micro-Auth project. We expect all contributors to follow the [Code of Conduct](https://github.com/rahulc0dy/micro-auth/blob/main/.github/CODE_OF_CONDUCT.md).
+Please be respectful and considerate to everyone participating in the Micro-Auth project. We expect all contributors to follow the [Code of Conduct](https://github.com/rahulc0dy/micro-auth/blob/master/.github/CODE_OF_CONDUCT.md).
 
 ### Development Setup
 To get started with development on Micro-Auth, follow these instructions:
@@ -91,7 +91,7 @@ To get started with development on Micro-Auth, follow these instructions:
 2. Install the dependencies.
 
     ```bash
-    deno install
+    deno task deps
     ```
 3. Set up the environment variables as shown in the `.env.example` file   
 
@@ -100,7 +100,7 @@ To get started with development on Micro-Auth, follow these instructions:
     ```bash
     deno task dev
     ```
-You can now access the authentication microservice on http://localhost:3000.
+You can now access the authentication microservice on `http://localhost:<PORT>`.
 
 #### Coding Standards
 
