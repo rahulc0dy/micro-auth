@@ -3,10 +3,10 @@ name: Test App
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   test:
@@ -34,4 +34,6 @@ jobs:
 
       # Step 4: Run the tests
       - name: Run tests
-        run: deno test --allow-net --allow-read
+        env:
+          PORT: ${{ secrets.PORT }}
+        run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
