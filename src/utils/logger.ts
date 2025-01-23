@@ -23,7 +23,12 @@ const consoleLogFormat = combine(
     };
 
     if (typeof message === "object") {
-      message = JSON.stringify(message, null, 2);
+      try {
+        message = JSON.stringify(message, null, 2);
+      } catch (_error) {
+        message =
+          "[Circular Reference Error] Unable to stringify object. Please see log file.";
+      }
     }
 
     const styledLevel = levelStyles[level] || level.toUpperCase();

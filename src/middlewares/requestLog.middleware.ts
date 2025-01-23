@@ -6,7 +6,17 @@ export const reqLogMiddleware = async (
   next: () => Promise<void>,
 ) => {
   const start = performance.now();
-  await next();
+  try {
+    await next();
+  } catch (error) {
+    logger.error({
+      error: error.message,
+      stack: error.stack,
+      method: c.req.method,
+      url: c.req.url,
+    });
+    throw error;
+  }
 
   const duration = (performance.now() - start).toFixed(2);
   const method = c.req.method;
