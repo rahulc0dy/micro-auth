@@ -34,4 +34,4 @@ jobs:
 
       # Step 4: Run the tests
       - name: Run tests
-        run: deno test --allow-net --allow-read
+        run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
