@@ -19,7 +19,7 @@ export const { PORT, APP_ENV, LOG_LEVEL, LOG_DIR } = createEnv({
       "verbose",
       "silly",
     ]).optional().default("info"),
-    LOG_DIR: z.string(),
+    LOG_DIR: z.string().optional().default("logs"),
   },
 
   /**
