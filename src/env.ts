@@ -1,15 +1,25 @@
-import { createEnv } from "@t3-oss/env-core";
-import { z, ZodError } from "zod";
-import { configDotenv } from "dotenv";
+import {createEnv} from "@t3-oss/env-core";
+import {z, ZodError} from "zod";
+import {configDotenv} from "dotenv";
 
 configDotenv({ path: "./.env" });
 
-export const { PORT, NODE_ENV } = createEnv({
+export const { PORT, APP_ENV, LOG_LEVEL, LOG_DIR } = createEnv({
   server: {
     PORT: z.string().trim().transform((PORT) => parseInt(PORT)),
-    NODE_ENV: z.enum(["production", "development", "test"]).optional().default(
+    APP_ENV: z.enum(["production", "development", "test"]).optional().default(
       "development",
     ),
+    LOG_LEVEL: z.enum([
+      "error",
+      "info",
+      "warn",
+      "debug",
+      "http",
+      "verbose",
+      "silly",
+    ]).optional().default("info"),
+    LOG_DIR: z.string().optional().default("logs"),
   },
 
   /**
