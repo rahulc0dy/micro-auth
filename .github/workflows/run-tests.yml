@@ -34,4 +34,6 @@ jobs:
 
       # Step 4: Run the tests
       - name: Run tests
+        env:
+          PORT: ${{ secrets.PORT }}
         run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
