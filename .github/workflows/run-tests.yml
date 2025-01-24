@@ -1,4 +1,4 @@
-name: Test App
+name: Run Tests
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  test:
+  e2etests:
     runs-on: ubuntu-latest
 
     steps:

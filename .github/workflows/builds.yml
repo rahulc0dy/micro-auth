@@ -1,0 +1,52 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - master # Trigger on pushes to the master branch
+  pull_request:
+    branches:
+      - master # Trigger on pull requests targeting the master branch
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Deno
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v1.x # Always use the latest Deno version
+
+      # Step 3: Cache dependencies (optional)
+      - name: Cache Deno Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/deno.json', '**/deno.jsonc', '**/import_map.json') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-
+
+      # Step 4: Install dependencies
+      - name: Cache and Install Dependencies
+        run: deno cache src/index.ts # Adjust the entry point as necessary
+
+      # Step 5: Run Linter
+      - name: Run Linter
+        run: deno lint
+
+      # Step 6: Run Formatter Check
+      - name: Check Formatting
+        run: deno fmt --check
+
+      # Step 7: Run Tests
+      - name: Run Tests
+        env:
+          DENO_ENV: test # Example: set an environment variable for testing
+        run: deno test --allow-net --allow-env --allow-read # Adjust permissions based on your app requirements

@@ -14,11 +14,14 @@
 
 # Authentication Microservice
 
-A robust authentication microservice built with [Deno](https://deno.land/) and [Hono.js](https://hono.dev/). This microservice provides essential authentication features, including support for **JWT**, **OAuth**, **email/phone-password login**, and **two-factor authentication (2FA)**.
+A robust authentication microservice built with [Deno](https://deno.land/) and [Hono.js](https://hono.dev/). This
+microservice provides essential authentication features, including support for **JWT**, **OAuth**, *
+*email/phone-password login**, and **two-factor authentication (2FA)**.
 
 ---
 
-[![Test App](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml)
+[![Tests](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml)
+[![Builds](https://github.com/rahulc0dy/micro-auth/actions/workflows/builds.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/builds.yml)
 
 
 ---
@@ -58,10 +61,11 @@ A robust authentication microservice built with [Deno](https://deno.land/) and [
    git clone https://github.com/rahulc0dy/micro-auth.git
    cd micro-auth
    ```
-   
+
 2. **Setup environment variables:**
-   
-    Set up your environment variables as shown in the [_Environment Variables_](#️-environment-variables) section.<br><br>
+
+   Set up your environment variables as shown in the [_Environment Variables_](#️-environment-variables)
+   section.<br><br>
 
 3. **Install dependencies:**
    ```bash
@@ -86,6 +90,7 @@ Create a `.env` file in the root of your project with variables specified in the
 ### Authentication
 
 #### **POST** `/auth/register`
+
 - **Description**: Register a new user with email/phone and password.
 - **Request Body:**
   ```json
@@ -96,6 +101,7 @@ Create a `.env` file in the root of your project with variables specified in the
   ```
 
 #### **POST** `/auth/login`
+
 - **Description**: Login with email/phone and password.
 - **Request Body:**
   ```json
@@ -106,25 +112,31 @@ Create a `.env` file in the root of your project with variables specified in the
   ```
 
 #### **POST** `/auth/refresh`
+
 - **Description**: Refresh the JWT token.
 
 #### **POST** `/auth/logout`
+
 - **Description**: Logout and invalidate the current session.
 
 ### OAuth
 
 #### **GET** `/oauth/:provider`
+
 - **Description**: Redirect to the OAuth provider's login page (e.g., Google).
 
 #### **GET** `/oauth/callback`
+
 - **Description**: Handle the OAuth callback and issue a JWT token.
 
 ### 2FA
 
 #### **POST** `/auth/2fa/setup`
+
 - **Description**: Generate a 2FA QR code for the user.
 
 #### **POST** `/auth/2fa/verify`
+
 - **Description**: Verify the OTP code for 2FA.
 - **Request Body:**
   ```json
@@ -138,6 +150,7 @@ Create a `.env` file in the root of your project with variables specified in the
 ## 📌 Usage
 
 ### Register a New User
+
 ```bash
 curl -X POST http://localhost:<PORT>/auth/register \
 -H "Content-Type: application/json" \
@@ -145,6 +158,7 @@ curl -X POST http://localhost:<PORT>/auth/register \
 ```
 
 ### Login
+
 ```bash
 curl -X POST http://localhost:<PORT>/auth/login \
 -H "Content-Type: application/json" \
@@ -152,12 +166,14 @@ curl -X POST http://localhost:<PORT>/auth/login \
 ```
 
 ### Set Up 2FA
+
 ```bash
 curl -X POST http://localhost:<PORT>/auth/2fa/setup \
 -H "Authorization: Bearer <JWT_TOKEN>"
 ```
 
 ### Verify 2FA Code
+
 ```bash
 curl -X POST http://localhost:<PORT>/auth/2fa/verify \
 -H "Authorization: Bearer <JWT_TOKEN>" \
@@ -183,4 +199,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Contributing
 
 We welcome contributions to make Authentication Microservice better for everyone.
-Please review our [Contributing Guidelines](https://github.com/rahulc0dy/micro-auth/blob/master/docs/CONTRIBUTING.md) to get started.
+Please review our [Contributing Guidelines](https://github.com/rahulc0dy/micro-auth/blob/master/docs/CONTRIBUTING.md) to
+get started.
