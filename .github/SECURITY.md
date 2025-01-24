@@ -2,7 +2,8 @@
 
 ## Reporting a Vulnerability
 
-Thank you for helping us improve the security of **Micro-Auth**. If you find a vulnerability in the project, please follow these steps to report it:
+Thank you for helping us improve the security of **Micro-Auth**. If you find a vulnerability in the project, please
+follow these steps to report it:
 
 1. **Contact Us**:
     - Email codyrahulop [at] gmail [dot] com with details of the vulnerability.
@@ -16,7 +17,8 @@ Thank you for helping us improve the security of **Micro-Auth**. If you find a v
 
 3. **Wait for Response**:
     - We will acknowledge receipt of your report within **48 hours**.
-    - After validating the vulnerability, we aim to resolve it as quickly as possible. You will be notified when the issue is fixed.
+    - After validating the vulnerability, we aim to resolve it as quickly as possible. You will be notified when the
+      issue is fixed.
 
 4. **Confidentiality**:
     - We request that you keep the details of any vulnerability confidential until it has been resolved.
@@ -24,11 +26,12 @@ Thank you for helping us improve the security of **Micro-Auth**. If you find a v
 
 ## Supported Versions
 
-We support the latest stable version of **Micro-Auth**. If a vulnerability exists in an older version, it may not be fixed unless the issue also affects the latest version.
+We support the latest stable version of **Micro-Auth**. If a vulnerability exists in an older version, it may not be
+fixed unless the issue also affects the latest version.
 
-| Version | Supported       |
-|---------|-----------------|
-| 1.0.0   | ✅ Supported     |
+| Version | Supported   |
+|---------|-------------|
+| 1.0.0   | ✅ Supported |
 
 ---
 

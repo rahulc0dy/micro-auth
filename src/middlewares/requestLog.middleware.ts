@@ -1,4 +1,4 @@
-import {Context} from "hono";
+import { Context } from "hono";
 import logger from "../utils/logger.ts";
 
 export const reqLogMiddleware = async (

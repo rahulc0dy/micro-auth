@@ -1,8 +1,8 @@
-import {Context} from "hono";
+import { Context } from "hono";
 import logger from "./logger.ts";
-import {APP_ENV} from "../env.ts";
-import {STATUS} from "../constants/statusCodes.ts";
-import {z} from "zod";
+import { APP_ENV } from "../env.ts";
+import { STATUS } from "../constants/statusCodes.ts";
+import { z } from "zod";
 
 const errorHandler = (err: unknown, c: Context) => {
   const isProduction = APP_ENV === "production";

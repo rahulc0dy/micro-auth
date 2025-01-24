@@ -1,6 +1,6 @@
-import {createEnv} from "@t3-oss/env-core";
-import {z, ZodError} from "zod";
-import {configDotenv} from "dotenv";
+import { createEnv } from "@t3-oss/env-core";
+import { z, ZodError } from "zod";
+import { configDotenv } from "dotenv";
 
 configDotenv({ path: "./.env" });
 

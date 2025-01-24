@@ -7,4 +7,4 @@ services:
       - "8000:8000"
     environment:
       - PORT=8000
-    command: ["run", "--allow-net", "--allow-env", "--allow-read", "src/app.ts"]
+    command: [ "run", "--allow-net", "--allow-env", "--allow-read", "src/app.ts" ]
