@@ -11,7 +11,8 @@
   "tasks": {
     "dev": "deno run --watch --allow-sys --allow-net --allow-read --allow-env --allow-write src/index.ts",
     "deps": "deno cache deps.ts",
-    "start": "deno run --allow-net src/index.ts"
+    "start": "deno run --allow-net src/index.ts",
+    "test": "deno test --watch --allow-sys --allow-net --allow-read --allow-env --allow-write"
   },
   "compilerOptions": {
     "jsx": "precompile",
