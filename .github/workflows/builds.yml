@@ -22,7 +22,7 @@ jobs:
       - name: Set up Deno
         uses: denoland/setup-deno@v2
         with:
-          deno-version: v1.x # Always use the latest Deno version
+          deno-version: v2.x # Always use the latest Deno version
 
       # Step 3: Cache dependencies (optional)
       - name: Cache Deno Dependencies
@@ -49,4 +49,4 @@ jobs:
       - name: Run Tests
         env:
           DENO_ENV: test # Example: set an environment variable for testing
-        run: deno test --allow-net --allow-env --allow-read # Adjust permissions based on your app requirements
+        run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
