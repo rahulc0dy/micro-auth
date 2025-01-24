@@ -5,7 +5,7 @@ import errorHandler from "./utils/errorHandler.ts";
 
 const app = new Hono();
 
-app.use("*", reqLogMiddleware);
+app.use(reqLogMiddleware);
 registerV1Routes(app);
 
 app.onError(errorHandler);
