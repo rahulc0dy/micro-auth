@@ -1,5 +1,5 @@
-import {describe, test} from "jsr:@std/testing/bdd";
-import {expect} from "jsr:@std/expect";
+import { describe, test } from "jsr:@std/testing/bdd";
+import { expect } from "jsr:@std/expect";
 import app from "../src/app.ts";
 
 const urlPrefix = "/api/v1";

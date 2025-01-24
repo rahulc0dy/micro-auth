@@ -1,4 +1,4 @@
-import {Context} from "hono";
+import { Context } from "hono";
 
 export const healthCheckServer = (c: Context) => {
   c.status(200);

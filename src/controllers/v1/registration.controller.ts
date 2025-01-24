@@ -1,5 +1,5 @@
-import {Context} from "hono";
-import {z} from "zod";
+import { Context } from "hono";
+import { z } from "zod";
 
 const emailPasswordSchema = z.object({
   name: z.string().min(1, "Name is required"),

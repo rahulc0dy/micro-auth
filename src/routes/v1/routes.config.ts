@@ -1,4 +1,4 @@
-import {Hono} from "hono";
+import { Hono } from "hono";
 import healthCheckRoutes from "./health-check.route.ts";
 import registrationRoutes from "./registration.route.ts";
 

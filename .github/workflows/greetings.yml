@@ -1,4 +1,4 @@
-name: Greetings Workflow
+name: Greetings To New Users
 
 on:
   pull_request_target:

@@ -1,5 +1,4 @@
 import app from "./app.ts";
-import {PORT} from "./env.ts";
+import { PORT } from "./env.ts";
 
-
-Deno.serve({port:PORT},app.fetch)
+Deno.serve({ port: PORT }, app.fetch);

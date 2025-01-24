@@ -1,5 +1,5 @@
-import {Hono} from 'hono';
-import {healthCheckServer} from "../../controllers/v1/health-check.controller.ts";
+import { Hono } from "hono";
+import { healthCheckServer } from "../../controllers/v1/health-check.controller.ts";
 
 const healthCheckRoutes = new Hono();
 
