@@ -57,7 +57,6 @@ const errorHandler = (err: unknown, c: Context) => {
       url: c.req.url,
     });
 
-    // Return generic error response
     return c.json(
       {
         message: "Internal Server Error",
