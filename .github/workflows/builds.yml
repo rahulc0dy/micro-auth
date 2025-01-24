@@ -44,5 +44,6 @@ jobs:
       # Step 7: Run Tests
       - name: Run Tests
         env:
-          DENO_ENV: test # Example: set an environment variable for testing
+          PORT: ${{ secrets.PORT }}
+          APP_ENV: test # Example: set an environment variable for testing
         run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
