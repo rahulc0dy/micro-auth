@@ -14,7 +14,8 @@ export const registrationController = async (c: Context) => {
 
   const { name, email, password } = validatedData;
 
-  // Perform any registrationController logic here, e.g., saving to the database
+  // TODO:Perform any registrationController logic here, e.g., saving to the database
+
   return c.json({
     success: true,
     message: "Registration successful",

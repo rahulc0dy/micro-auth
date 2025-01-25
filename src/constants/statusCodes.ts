@@ -1,42 +1,6 @@
 import { ContentfulStatusCode } from "hono/utils/http-status";
 
 export const STATUS: Record<string, Record<string, ContentfulStatusCode>> = {
-  SUCCESS: {
-    // Request succeeded
-    OK: 200,
-
-    // Resource created
-    CREATED: 201,
-
-    // Request accepted for processing
-    ACCEPTED: 202,
-
-    // Information from another source
-    NON_AUTHORITATIVE_INFORMATION: 203,
-
-    // Partial content (used in range requests)
-    PARTIAL_CONTENT: 206,
-  },
-  REDIRECTION: {
-    // Multiple options available
-    MULTIPLE_CHOICES: 300,
-
-    // Resource moved permanently
-    MOVED_PERMANENTLY: 301,
-
-    // Resource temporarily located elsewhere
-    FOUND: 302,
-
-    // See another resource (e.g., for POST/GET)
-    SEE_OTHER: 303,
-
-    // Temporary redirect to another resource
-    TEMPORARY_REDIRECT: 307,
-
-    // Permanent redirect
-    PERMANENT_REDIRECT: 308,
-  },
-
   CLIENT_ERROR: {
     // Bad request
     BAD_REQUEST: 400,
@@ -101,6 +65,25 @@ export const STATUS: Record<string, Record<string, ContentfulStatusCode>> = {
     // Rate limit exceeded
     TOO_MANY_REQUESTS: 429,
   },
+  REDIRECTION: {
+    // Multiple options available
+    MULTIPLE_CHOICES: 300,
+
+    // Resource moved permanently
+    MOVED_PERMANENTLY: 301,
+
+    // Resource temporarily located elsewhere
+    FOUND: 302,
+
+    // See another resource (e.g., for POST/GET)
+    SEE_OTHER: 303,
+
+    // Temporary redirect to another resource
+    TEMPORARY_REDIRECT: 307,
+
+    // Permanent redirect
+    PERMANENT_REDIRECT: 308,
+  },
   SERVER_ERROR: {
     // Generic server error
     INTERNAL_SERVER_ERROR: 500,
@@ -119,5 +102,21 @@ export const STATUS: Record<string, Record<string, ContentfulStatusCode>> = {
 
     // HTTP version not supported
     HTTP_VERSION_NOT_SUPPORTED: 505,
+  },
+  SUCCESS: {
+    // Request succeeded
+    OK: 200,
+
+    // Resource created
+    CREATED: 201,
+
+    // Request accepted for processing
+    ACCEPTED: 202,
+
+    // Information from another source
+    NON_AUTHORITATIVE_INFORMATION: 203,
+
+    // Partial content (used in range requests)
+    PARTIAL_CONTENT: 206,
   },
 };
