@@ -1,18 +1,23 @@
 {
   "imports": {
+    "@prisma/client": "npm:@prisma/client@^6.2.1",
     "@t3-oss/env-core": "jsr:@t3-oss/env-core@^0.10.3",
     "chalk": "npm:chalk@^5.4.1",
     "dotenv": "npm:dotenv@^16.4.7",
     "hono": "jsr:@hono/hono@^4.6.17",
     "prettier": "npm:prettier@^3.4.2",
+    "prisma": "npm:prisma@^6.2.1",
     "winston": "npm:winston@^3.17.0",
     "zod": "npm:zod@^3.24.1"
   },
+  "nodeModulesDir": "auto",
   "tasks": {
     "dev": "deno run --watch --allow-sys --allow-net --allow-read --allow-env --allow-write src/index.ts",
     "deps": "deno cache src/index.ts",
     "start": "deno run --allow-net src/index.ts",
-    "test": "deno test --watch --allow-sys --allow-net --allow-read --allow-env --allow-write"
+    "test": "deno test --watch --allow-sys --allow-net --allow-read --allow-env --allow-write",
+    "prisma:generate-client": "deno run -A npm:prisma generate",
+    "prisma:pull-db": "deno run -A npm:prisma db pull"
   },
   "compilerOptions": {
     "jsx": "precompile",

@@ -1,0 +1,18 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["deno"]
+  output          = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id           String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name         String? @db.VarChar(255)
+  email        String? @db.VarChar(255)
+  phone_number String?
+  password     String?
+}
