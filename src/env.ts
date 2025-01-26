@@ -4,7 +4,7 @@ import { configDotenv } from "dotenv";
 
 configDotenv({ path: "./.env" });
 
-export const { PORT, APP_ENV, LOG_LEVEL, LOG_DIR } = createEnv({
+export const { PORT, APP_ENV, LOG_LEVEL, LOG_DIR, DATABASE_URL } = createEnv({
   server: {
     PORT: z.string().trim().transform((PORT) => parseInt(PORT)),
     APP_ENV: z.enum(["production", "development", "test"]).optional().default(
@@ -20,6 +20,7 @@ export const { PORT, APP_ENV, LOG_LEVEL, LOG_DIR } = createEnv({
       "silly",
     ]).optional().default("info"),
     LOG_DIR: z.string().optional().default("logs"),
+    DATABASE_URL: z.string().url(),
   },
 
   /**

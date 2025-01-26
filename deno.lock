@@ -10,6 +10,7 @@
     "npm:@types/node@*": "22.5.4",
     "npm:chalk@^5.4.1": "5.4.1",
     "npm:dotenv@^16.4.7": "16.4.7",
+    "npm:prettier@^3.4.2": "3.4.2",
     "npm:winston@^3.17.0": "3.17.0",
     "npm:zod@3.24.1": "3.24.1",
     "npm:zod@^3.23.0": "3.24.1",
@@ -149,6 +150,9 @@
       "dependencies": [
         "fn.name"
       ]
+    },
+    "prettier@3.4.2": {
+      "integrity": "sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ=="
     },
     "readable-stream@3.6.2": {
       "integrity": "sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==",
