@@ -45,5 +45,6 @@ jobs:
       - name: Run Tests
         env:
           PORT: ${{ secrets.PORT }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           APP_ENV: test # Example: set an environment variable for testing
         run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
