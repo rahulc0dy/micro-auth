@@ -11,7 +11,14 @@ export const performanceCheckServer = (c: Context) => {
   const { sysInfoKey } = c.req.query();
   if (!sysInfoKey || sysInfoKey !== SYS_INFO_KEY) {
     return c.json(
-      { success: false, error: "Unauthorised Request" },
+      {
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: "Invalid or missing system information key",
+          details: "Access to system metrics requires valid authentication"
+        }
+      },
       STATUS.CLIENT_ERROR.UNAUTHORIZED,
     );
   }
