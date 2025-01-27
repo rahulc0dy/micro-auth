@@ -24,7 +24,8 @@ describe("App Health", () => {
     expect(jsonRes).toHaveProperty("timestamp");
     expect(jsonRes).toHaveProperty("uptime");
     expect(jsonRes).toHaveProperty("osRelease");
-    expect(jsonRes).toHaveProperty("denoVersion");
+    expect(jsonRes).toHaveProperty("versions");
+    expect(jsonRes).toHaveProperty("deno");
     expect(jsonRes).toHaveProperty("networkInterfaces");
     expect(jsonRes).toHaveProperty("avgLoad");
   });

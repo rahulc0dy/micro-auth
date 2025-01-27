@@ -22,7 +22,7 @@ export const performanceCheckServer = (c: Context) => {
     memoryInfo: Deno.systemMemoryInfo(),
     uptime: Deno.osUptime(),
     osRelease: Deno.osRelease(),
-    version: Deno.build,
+    versions: Deno.build,
     deno: Deno.version,
     networkInterfaces: Deno.networkInterfaces(),
     avgLoad: {
