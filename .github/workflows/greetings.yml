@@ -25,13 +25,13 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           issue-message: >
-            👋 Hello @{{ sender.login }}!  
+            👋 Hello @{{ github.event.issue.user.login  }}!  
             Thank you for opening this issue. We appreciate your contribution to the project!  
             Please review our [contribution guidelines](https://github.com/rahulc0dy/micro-auth/blob/main/CONTRIBUTING.md) if you haven’t already.  
             A team member will respond soon! 🚀
 
           pr-message: >
-            👋 Hi @{{ sender.login }}!  
+            👋 Hi @{{ github.event.issue.user.login }}!  
             Thanks for your first pull request! 🎉  
             Please ensure it adheres to our [contribution guidelines](https://github.com/rahulc0dy/micro-auth/blob/main/CONTRIBUTING.md) and includes appropriate tests.  
             A team member will review it shortly. Thank you for improving the project! 😊

@@ -7,7 +7,7 @@ export const healthCheckServer = (c: Context) => {
   return c.json({ status: "Server running." });
 };
 
-export const performCheckServer = (c: Context) => {
+export const performanceCheckServer = (c: Context) => {
   const { sysInfoKey } = c.req.query();
   if (!sysInfoKey || sysInfoKey !== SYS_INFO_KEY) {
     return c.json(
@@ -22,7 +22,8 @@ export const performCheckServer = (c: Context) => {
     memoryInfo: Deno.systemMemoryInfo(),
     uptime: Deno.osUptime(),
     osRelease: Deno.osRelease(),
-    denoVersion: Deno.build,
+    version: Deno.build,
+    deno: Deno.version,
     networkInterfaces: Deno.networkInterfaces(),
     avgLoad: {
       "1m": Deno.loadavg()[0],
