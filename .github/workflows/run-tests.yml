@@ -35,7 +35,5 @@ jobs:
 
       # Step 4: Run the tests
       - name: Run tests
-        env:
-          PORT: ${{ secrets.PORT }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        env: ${{ secrets }}
         run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
