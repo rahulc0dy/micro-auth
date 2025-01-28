@@ -62,7 +62,7 @@ body:
     id: micro-auth-version
     attributes:
       label: Which version of the  api are you using?
-      description: You can get this through the performance route.
+      description: You can get this by making a GET request to `/api/v1/performance` endpoint.
       placeholder: 1.0.0
     validations:
       required: false

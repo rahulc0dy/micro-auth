@@ -31,7 +31,7 @@ jobs:
             A team member will respond soon! 🚀
 
           pr-message: >
-            👋 Hi @{{ github.actor }} !  
+            👋 Hi @{{ github.event.pull_request.user.login }} !  
             Thanks for your first pull request! 🎉  
             Please ensure it adheres to our [contribution guidelines](https://github.com/rahulc0dy/micro-auth/blob/main/CONTRIBUTING.md) and includes appropriate tests.  
             A team member will review it shortly. Thank you for improving the project! 😊
