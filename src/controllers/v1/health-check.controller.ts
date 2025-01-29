@@ -1,6 +1,8 @@
 import { Context } from "hono";
 import { STATUS } from "../../constants/statusCodes.ts";
 import { SYS_INFO_KEY } from "../../env.ts";
+import { getConnInfo } from "hono/deno";
+import logger from "../../utils/logger.ts";
 
 export const healthCheckServer = (c: Context) => {
   c.status(STATUS.SUCCESS.OK);
@@ -10,6 +12,11 @@ export const healthCheckServer = (c: Context) => {
 export const performanceCheckServer = (c: Context) => {
   const { sysInfoKey } = c.req.query();
   if (!sysInfoKey || sysInfoKey !== SYS_INFO_KEY) {
+    const info = getConnInfo(c);
+    logger.warn({
+      warning: "Unauthorised request to access performance.",
+      info,
+    });
     return c.json(
       { success: false, error: "Unauthorised Request" },
       STATUS.CLIENT_ERROR.UNAUTHORIZED,
