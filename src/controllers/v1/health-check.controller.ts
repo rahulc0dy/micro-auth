@@ -1,6 +1,8 @@
 import { Context } from "hono";
 import { STATUS } from "../../constants/statusCodes.ts";
 import { SYS_INFO_KEY } from "../../env.ts";
+import { getConnInfo } from "hono/deno";
+import logger from "../../utils/logger.ts";
 
 export const healthCheckServer = (c: Context) => {
   c.status(STATUS.SUCCESS.OK);
@@ -22,7 +24,11 @@ export const performanceCheckServer = [
     new TextEncoder().encode(sysInfoKey),
     new TextEncoder().encode(SYS_INFO_KEY)
   )) {
-    logger.warn(`Unauthorized performance check attempt from ${c.req.header("x-forwarded-for") || c.req.ip()}`);
+    const info = getConnInfo(c);
+    logger.warn({
+      warning: "Unauthorised request to access performance.",
+      info,
+    });
     return c.json(
       {
         success: false,
