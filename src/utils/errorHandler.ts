@@ -11,8 +11,7 @@ const errorHandler = (err: unknown, c: Context) => {
     // Log validation errors
     logger.error({
       level: "error",
-      message: err.message,
-      details: err.flatten(),
+      message: err.flatten(),
       method: c.req.method,
       url: c.req.url,
     });
@@ -51,8 +50,7 @@ const errorHandler = (err: unknown, c: Context) => {
     // Log unknown errors
     logger.error({
       level: "error",
-      message: "Unknown error occurred",
-      details: err,
+      message: err,
       method: c.req.method,
       url: c.req.url,
     });

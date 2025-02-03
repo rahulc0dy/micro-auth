@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: First-time contributor?
+    url: https://github.com/rahulc0dy/micro-auth/blob/master/docs/CONTRIBUTING.md
+    about: Follow these instructions to get started.
+  - name: Micro Auth Community Support
+    url: https://github.com/rahulc0dy/micro-auth/discussions
+    about: Please ask and answer questions here.

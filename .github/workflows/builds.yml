@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test
+    name: Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +43,5 @@ jobs:
 
       # Step 7: Run Tests
       - name: Run Tests
-        env:
-          PORT: ${{ secrets.PORT }}
-          APP_ENV: test # Example: set an environment variable for testing
+        env: ${{ secrets }}
         run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
