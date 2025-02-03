@@ -34,3 +34,4 @@ package-lock.json
 
 # generated files
 generated
+coverage

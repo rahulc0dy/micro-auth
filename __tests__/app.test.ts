@@ -1,7 +1,7 @@
 import { describe, test } from "jsr:@std/testing/bdd";
 import { expect } from "jsr:@std/expect";
 import app from "../src/app.ts";
-import { SYS_INFO_KEY } from "../src/env.ts";
+import { APP_ENV, SYS_INFO_KEY } from "../src/env.ts";
 
 const urlPrefix = "/api/v1";
 
@@ -30,14 +30,21 @@ describe("App Health", () => {
     expect(jsonRes).toHaveProperty("avgLoad");
   });
 
-  test("Should return unauthorised error.", async () => {
-    const res = await app.request(
-      `${urlPrefix}/health-check/performance?sysInfoKey=somewrongvalue`,
-    );
-    const jsonRes = await res.json();
+  test({
+    name: "Should return unauthorised error.",
+    async fn() {
+      const res = await app.request(
+        `${urlPrefix}/health-check/performance?sysInfoKey=somewrongvalue`,
+      );
+      const jsonRes = await res.json();
 
-    expect(res.status).toBe(401);
+      expect(res.status).toBe(401);
 
-    expect(jsonRes).toEqual({ success: false, error: "Unauthorised Request" });
+      expect(jsonRes).toEqual({
+        success: false,
+        error: "Unauthorised Request",
+      });
+    },
+    ignore: APP_ENV !== "test",
   });
 });

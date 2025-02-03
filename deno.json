@@ -12,10 +12,10 @@
   },
   "nodeModulesDir": "auto",
   "tasks": {
-    "dev": "deno run --watch --allow-sys --allow-net --allow-read --allow-env --allow-write src/index.ts",
+    "dev": "deno run --watch --allow-all src/index.ts",
     "deps": "deno cache src/index.ts",
     "start": "deno run --allow-net src/index.ts",
-    "test": "deno test --watch --allow-sys --allow-net --allow-read --allow-env --allow-write",
+    "test": "deno test --watch --allow-all --fail-fast",
     "prisma:generate-client": "deno run -A npm:prisma generate",
     "prisma:pull-db": "deno run -A npm:prisma db pull"
   },
