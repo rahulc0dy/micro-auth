@@ -43,7 +43,7 @@ const errorHandler = (err: unknown, c: Context) => {
     return c.json(
       {
         message: isProduction ? "Internal Server Error" : err.message,
-        errors: isProduction ? "An unexpected error occurred" : [err.message],
+        errors: isProduction ? ["An unexpected error occurred"] : [err.message],
       },
       STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR
     );
@@ -61,8 +61,8 @@ const errorHandler = (err: unknown, c: Context) => {
       {
         message: "Internal Server Error",
         errors: isProduction
-          ? "An unexpected error occurred"
-          : "Unknown error occurred",
+          ? ["An unexpected error occurred"]
+          : ["Unknown error occurred"],
       },
       STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR
     );

@@ -22,7 +22,7 @@ export const registrationController = async (c: Context) => {
     .from(users)
     .where(eq(email, users.email));
 
-  if (!existingUser || existingUser.length > 0) {
+  if (existingUser && existingUser.length > 0) {
     throw new Error("User already exists, please use a different email.");
   }
 
