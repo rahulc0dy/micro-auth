@@ -30,11 +30,21 @@ export const registrationController = async (c: Context) => {
 
   const user = await db
     .insert(users)
-    .values({ email, passwordHash: hashedPassword, name: name });
+    .values({ email, passwordHash: hashedPassword, name: name })
+    .returning({
+      id: users.id,
+      name: users.name,
+      email: users.email,
+      createdAt: users.createdAt,
+    });
+
+  if (!user || !user[0]) throw new Error("Could not create user.");
 
   return c.json({
     success: true,
     message: "Registration successful",
-    data: user,
+    data: {
+      user: user[0],
+    },
   });
 };
