@@ -15,6 +15,7 @@
     "dev": "bun --watch index.ts",
     "build": "echo \"nothing to build\"",
     "test": "bun test",
+    "lint": "echo \"No linter set up\"",
     "start": "bun index.ts"
   },
   "dependencies": {
