@@ -38,12 +38,4 @@ export const { PORT, APP_ENV, LOG_LEVEL, LOG_DIR, DATABASE_URL } = createEnv({
     );
     throw new Error("Invalid environment variables");
   },
-  // Called when server variables are accessed on the client.
-  onInvalidAccess: (variable: string) => {
-    throw new Error(
-      `❌ Attempted to access server-side environment variable ${variable} on the client`
-    );
-  },
-  // Tell the library when we're in a server context.
-  isServer: typeof window === "undefined",
 });

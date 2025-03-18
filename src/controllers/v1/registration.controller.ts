@@ -20,7 +20,7 @@ export const registrationController = async (c: Context) => {
   const existingUser = await db
     .select()
     .from(users)
-    .where(eq(email, users.email));
+    .where(eq(users.email, email));
 
   if (existingUser && existingUser.length > 0) {
     throw new Error("User already exists, please use a different email.");
