@@ -1,9 +1,9 @@
-import { Context } from "hono";
+import type { Context } from "hono";
 import logger from "../utils/logger.ts";
 
 export const reqLogMiddleware = async (
   c: Context,
-  next: () => Promise<void>,
+  next: () => Promise<void>
 ) => {
   const start = performance.now();
   await next();

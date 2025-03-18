@@ -18,32 +18,33 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up Deno
-      - name: Set up Deno
-        uses: denoland/setup-deno@v2
+      # Step 2: Set up Bun
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          deno-version: v2.x # Always use the latest Deno version
+          bun-version: latest  # You can specify a version if needed
 
-      # Step 3: Cache dependencies (optional)
-      - name: Cache Deno Dependencies
+      # Step 3: Cache Bun Dependencies (optional)
+      - name: Cache Bun Dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.cache/deno
-          key: ${{ runner.os }}-deno-${{ hashFiles('**/deno.json', '**/deno.jsonc', '**/import_map.json') }}
+          # Adjust the cache path if your Bun cache location differs
+          path: ~/.bun
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}
           restore-keys: |
-            ${{ runner.os }}-deno-
+            ${{ runner.os }}-bun-
 
       # Step 4: Install dependencies
-      - name: Cache and Install Dependencies
-        run: deno cache src/index.ts # Adjust the entry point as necessary
+      - name: Install Dependencies
+        run: bun install
 
-      # Step 5: Run Linter
+      # Step 5: Run Linter (ensure you have a lint script defined in package.json)
       - name: Run Linter
-        run: deno lint
+        run: bun run lint
 
-      # Step 7: Run Tests
+      # Step 6: Run Tests
       - name: Run Tests
         env:
           PORT: ${{ secrets.PORT }}
-          APP_ENV: test # Example: set an environment variable for testing
-        run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
+          APP_ENV: test  # Example: set an environment variable for testing
+        run: bun test

@@ -1,0 +1,32 @@
+{
+  "name": "micro-auth",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/pg": "^8.11.11",
+    "drizzle-kit": "^0.30.5",
+    "tsx": "^4.19.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "bun --watch index.ts",
+    "build": "echo \"nothing to build\"",
+    "test": "bun test",
+    "start": "bun index.ts"
+  },
+  "dependencies": {
+    "@t3-oss/env-core": "^0.12.0",
+    "bcryptjs": "^3.0.2",
+    "chalk": "^5.4.1",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.40.1",
+    "hono": "^4.7.4",
+    "pg": "^8.14.1",
+    "prettier": "^3.5.3",
+    "winston": "^3.17.0",
+    "zod": "^3.24.2"
+  }
+}

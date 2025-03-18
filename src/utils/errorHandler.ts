@@ -1,4 +1,4 @@
-import { Context } from "hono";
+import type { Context } from "hono";
 import logger from "./logger.ts";
 import { APP_ENV } from "../env.ts";
 import { STATUS } from "../constants/statusCodes.ts";
@@ -27,7 +27,7 @@ const errorHandler = (err: unknown, c: Context) => {
           message: e.message,
         })),
       },
-      STATUS.CLIENT_ERROR.BAD_REQUEST, // Bad Request
+      STATUS.CLIENT_ERROR.BAD_REQUEST // Bad Request
     );
   } else if (err instanceof Error) {
     // Log runtime errors
@@ -42,10 +42,10 @@ const errorHandler = (err: unknown, c: Context) => {
     // Return internal server error response
     return c.json(
       {
-        message: "Internal Server Error",
-        error: isProduction ? "An unexpected error occurred" : err.message,
+        message: isProduction ? "Internal Server Error" : err.message,
+        errors: isProduction ? "An unexpected error occurred" : [err.message],
       },
-      STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR,
+      STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR
     );
   } else {
     // Log unknown errors
@@ -60,11 +60,11 @@ const errorHandler = (err: unknown, c: Context) => {
     return c.json(
       {
         message: "Internal Server Error",
-        error: isProduction
+        errors: isProduction
           ? "An unexpected error occurred"
           : "Unknown error occurred",
       },
-      STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR,
+      STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR
     );
   }
 };
