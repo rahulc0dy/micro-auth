@@ -41,7 +41,14 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      # Step 4: Run the tests with the DATABASE_URL pointing to the PostgreSQL service
+      # Step 4: Create PostgreSQL uuid-ossp extension
+      - name: Create uuid-ossp extension in PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+          psql "postgres://test:test@localhost:5432/test" -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+
+      # Step 5: Run the tests with the DATABASE_URL pointing to the PostgreSQL service
       - name: Run tests
         env:
           DATABASE_URL: postgres://test:test@localhost:5432/test
