@@ -1,5 +1,4 @@
-import { describe, test } from "jsr:@std/testing/bdd";
-import { expect } from "jsr:@std/expect";
+import { describe, expect, test } from "bun:test";
 import app from "../src/app.ts";
 
 const urlPrefix = "/api/v1";
@@ -65,8 +64,8 @@ describe("Registration", () => {
     expect(jsonResponse.message).toBe("Failed to validate credentials.");
     expect(jsonResponse.errors).toBeDefined();
     expect(jsonResponse.errors[0]).toEqual({
-      "field": "email",
-      "message": "Invalid email address",
+      field: "email",
+      message: "Invalid email address",
     });
   });
 

@@ -49,7 +49,7 @@ microservice provides essential authentication features, including support for *
 
 ## ✅ Prerequisites
 
-- [Deno](https://deno.land/) (v2.0 or higher)
+- [Bun](https://bun.sh/) (v1.2 or higher)
 - [Git](https://git-scm.com/) (v2.0 or higher)
 
 ---
@@ -69,12 +69,12 @@ microservice provides essential authentication features, including support for *
 
 3. **Install dependencies:**
    ```bash
-   deno task deps
+   bun install
    ```
 
 4. **Run the application in dev mode:**
    ```bash
-   deno task dev
+   bun run dev
    ```
 
 ---

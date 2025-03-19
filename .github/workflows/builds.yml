@@ -10,40 +10,23 @@ on:
 
 jobs:
   build:
-    name: Build and Test
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout Repository
+      # Step 1: Check out the repository code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       # Step 2: Set up Deno
-      - name: Set up Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x # Always use the latest Deno version
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
 
-      # Step 3: Cache dependencies (optional)
-      - name: Cache Deno Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/deno
-          key: ${{ runner.os }}-deno-${{ hashFiles('**/deno.json', '**/deno.jsonc', '**/import_map.json') }}
-          restore-keys: |
-            ${{ runner.os }}-deno-
+      # Step 3: Install dependencies (if needed) and cache them
+      - name: Install dependencies
+        run: bun install
 
-      # Step 4: Install dependencies
-      - name: Cache and Install Dependencies
-        run: deno cache src/index.ts # Adjust the entry point as necessary
-
-      # Step 5: Run Linter
-      - name: Run Linter
-        run: deno lint
-
-      # Step 7: Run Tests
-      - name: Run Tests
-        env:
-          PORT: ${{ secrets.PORT }}
-          APP_ENV: test # Example: set an environment variable for testing
-        run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
+      # Step 4: Run the linter
+      - name: Run linter
+        env: ${{ secrets }}
+        run: bun run lint

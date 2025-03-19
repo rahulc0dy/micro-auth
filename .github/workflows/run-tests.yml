@@ -10,31 +10,48 @@ on:
 
 jobs:
   e2etests:
-    name: Run E2E Tests
+    name: E2E Tests
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_DB: test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       # Step 1: Check out the repository code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up Deno
-      - name: Set up Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
+      # Step 2: Set up Bun
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
 
       # Step 3: Install dependencies (if needed) and cache them
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/deno
-          key: ${{ runner.os }}-deno-${{ hashFiles('deno.json', 'deno.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-deno-
+      - name: Install dependencies
+        run: bun install
 
-      # Step 4: Run the tests
+      # Step 4: Create PostgreSQL uuid-ossp extension
+      - name: Create uuid-ossp extension in PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+          psql "postgres://test:test@localhost:5432/test" -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+
+      # Step 5: Run the tests with the DATABASE_URL pointing to the PostgreSQL service
       - name: Run tests
         env:
+          DATABASE_URL: postgres://test:test@localhost:5432/test
           PORT: ${{ secrets.PORT }}
-        run: deno test --allow-sys --allow-net --allow-read --allow-env --allow-write
+          APP_ENV: test
+        run: bun drizzle-kit push && bun test
