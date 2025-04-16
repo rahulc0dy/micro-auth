@@ -8,6 +8,9 @@ on:
     branches:
       - master
 
+permissions:
+  content: read
+
 jobs:
   e2e-tests:
     name: E2E Tests
