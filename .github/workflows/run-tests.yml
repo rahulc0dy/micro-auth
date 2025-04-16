@@ -1,4 +1,4 @@
-name: Run Tests
+name: Tests
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  e2etests:
+  e2e-tests:
     name: E2E Tests
     runs-on: ubuntu-latest
 
@@ -54,4 +54,30 @@ jobs:
           DATABASE_URL: postgres://test:test@localhost:5432/test
           PORT: ${{ secrets.PORT }}
           APP_ENV: test
-        run: bun drizzle-kit push && bun test
+        run: bun drizzle-kit push && bun test "__tests__/e2e tests"
+
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Bun
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+
+      # Step 3: Install dependencies (if needed) and cache them
+      - name: Install dependencies
+        run: bun install
+
+      # Step 4: Run the tests
+      - name: Run tests
+        env:
+          DATABASE_URL: postgres://test:test@localhost:5432/test
+          PORT: ${{ secrets.PORT }}
+          APP_ENV: test
+        run: bun test "__tests__/unit tests"
