@@ -1,6 +1,9 @@
-import { Context } from "hono";
+import type { Context } from "hono";
+import { ApiResponse } from "../../utils/ApiResponse.ts";
 
 export const healthCheckServer = (c: Context) => {
-  c.status(200);
-  return c.json({ status: "Server running." });
+  return c.json(
+    new ApiResponse({ message: "Server OK!", data: {}, success: true }),
+    { status: 200 }
+  );
 };

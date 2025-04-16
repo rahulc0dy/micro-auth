@@ -4,6 +4,8 @@ import { db } from "../../database";
 import { users } from "../../database/schemas/users.ts";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import { STATUS } from "../../constants/statusCodes.ts";
+import { ApiResponse } from "../../utils/ApiResponse.ts";
 
 const emailPasswordSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -40,11 +42,16 @@ export const registrationController = async (c: Context) => {
 
   if (!user || !user[0]) throw new Error("Could not create user.");
 
-  return c.json({
-    success: true,
-    message: "Registration successful",
-    data: {
-      user: user[0],
-    },
-  });
+  return c.json(
+    new ApiResponse({
+      success: true,
+      message: "Registration successful",
+      data: {
+        user: user[0],
+      },
+    }),
+    {
+      status: STATUS.SUCCESS.CREATED,
+    }
+  );
 };
