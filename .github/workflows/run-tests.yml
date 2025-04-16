@@ -9,7 +9,7 @@ on:
       - master
 
 permissions:
-  content: read
+  contents: read
 
 jobs:
   e2e-tests:
