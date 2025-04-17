@@ -1,13 +1,13 @@
 import { describe, expect, test } from "bun:test";
-import app from "../src/app.ts";
+import app from "../../src/app.ts";
 
 const urlPrefix = "/api/v1";
 
 describe("Registration", () => {
   test("POST /register/email-pass with valid data", async () => {
     const formData = new URLSearchParams({
-      name: "test name",
-      email: "test@example.com",
+      name: `test ${Date.now()}`,
+      email: `test${Date.now()}@example.com`,
       password: "test@example",
     });
     const res = await app.request(`${urlPrefix}/register/email-pass`, {
@@ -18,7 +18,7 @@ describe("Registration", () => {
       body: formData.toString(),
     });
     const jsonResponse = await res.json();
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(201);
     expect(jsonResponse.success).toBe(true);
   });
 

@@ -3,6 +3,7 @@ import logger from "./logger.ts";
 import { APP_ENV } from "../env.ts";
 import { STATUS } from "../constants/statusCodes.ts";
 import { z } from "zod";
+import { ApiResponse } from "./ApiResponse.ts";
 
 const errorHandler = (err: unknown, c: Context) => {
   const isProduction = APP_ENV === "production";
@@ -19,14 +20,14 @@ const errorHandler = (err: unknown, c: Context) => {
 
     // Return validation error response
     return c.json(
-      {
+      new ApiResponse({
         success: false,
         message: "Failed to validate credentials.",
         errors: err.errors.map((e) => ({
           field: e.path.join("."),
           message: e.message,
         })),
-      },
+      }),
       STATUS.CLIENT_ERROR.BAD_REQUEST // Bad Request
     );
   } else if (err instanceof Error) {
@@ -41,10 +42,11 @@ const errorHandler = (err: unknown, c: Context) => {
 
     // Return internal server error response
     return c.json(
-      {
+      new ApiResponse({
+        success: false,
         message: isProduction ? "Internal Server Error" : err.message,
         errors: isProduction ? ["An unexpected error occurred"] : [err.message],
-      },
+      }),
       STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR
     );
   } else {
@@ -58,12 +60,13 @@ const errorHandler = (err: unknown, c: Context) => {
     });
 
     return c.json(
-      {
+      new ApiResponse({
+        success: false,
         message: "Internal Server Error",
         errors: isProduction
           ? ["An unexpected error occurred"]
           : ["Unknown error occurred"],
-      },
+      }),
       STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR
     );
   }
