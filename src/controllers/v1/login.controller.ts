@@ -35,9 +35,12 @@ export const emailPassLoginController = async (c: Context) => {
     });
   }
 
-  const hashedPass = await bcrypt.hash(password, 10);
+  const passwordMatches = await bcrypt.compare(
+    password,
+    existingUser[0].passwordHash
+  );
 
-  if (existingUser[0].passwordHash !== hashedPass) {
+  if (!passwordMatches) {
     throw new ApiError({
       message: "The password you entered is incorrect.",
       statusCode: STATUS.CLIENT_ERROR.BAD_REQUEST,

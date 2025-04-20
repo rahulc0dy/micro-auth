@@ -24,7 +24,11 @@ export const registrationController = async (c: Context) => {
     .where(eq(users.email, email));
 
   if (existingUser && existingUser.length > 0) {
-    throw new Error("User already exists, please use a different email.");
+    throw new ApiError({
+      message: "User already exists, please use a different email.",
+      statusCode: STATUS.CLIENT_ERROR.BAD_REQUEST,
+      errors: [{ message: "Email already registered", field: email }],
+    });
   }
 
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -39,7 +43,13 @@ export const registrationController = async (c: Context) => {
       createdAt: users.createdAt,
     });
 
-  if (!user || !user[0]) throw new Error("Could not create user.");
+  if (!user || !user[0]) {
+    throw new ApiError({
+      message: "Could not create user.",
+      statusCode: STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR,
+      errors: [{ message: "Failed to create user record" }],
+    });
+  }
 
   return c.json(
     new ApiResponse({
