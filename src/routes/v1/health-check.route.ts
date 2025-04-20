@@ -1,8 +1,12 @@
 import { Hono } from "hono";
-import { healthCheckServer } from "../../controllers/v1/health-check.controller.ts";
+import {
+  databaseHealthCheckController,
+  serverHealthCheckController,
+} from "../../controllers/v1/health-check.controller.ts";
 
-const healthCheckRoutes = new Hono();
+const healthCheckRouter = new Hono();
 
-healthCheckRoutes.get("/server", healthCheckServer);
+healthCheckRouter.get("/server", serverHealthCheckController);
+healthCheckRouter.get("/database", databaseHealthCheckController);
 
-export default healthCheckRoutes;
+export default healthCheckRouter;

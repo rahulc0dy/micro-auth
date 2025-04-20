@@ -4,72 +4,101 @@ import { APP_ENV } from "../env.ts";
 import { STATUS } from "../constants/statusCodes.ts";
 import { z } from "zod";
 import { ApiResponse } from "./ApiResponse.ts";
+import { ApiError } from "./ApiError.ts";
 
 const errorHandler = (err: unknown, c: Context) => {
-  const isProduction = APP_ENV === "production";
+  const isProd = APP_ENV === "production";
+  const { method, url } = { method: c.req.method, url: c.req.url };
 
+  // 1) Zod validation errors
   if (err instanceof z.ZodError) {
-    // Log validation errors
     logger.error({
       level: "error",
-      message: err.message,
+      message: "Validation failed",
       details: err.flatten(),
-      method: c.req.method,
-      url: c.req.url,
+      method,
+      url,
     });
 
-    // Return validation error response
+    const formatted = err.errors.map((e) => ({
+      field: e.path.join(".") || undefined,
+      message: e.message,
+    }));
+
     return c.json(
       new ApiResponse({
         success: false,
-        message: "Failed to validate credentials.",
-        errors: err.errors.map((e) => ({
-          field: e.path.join("."),
-          message: e.message,
-        })),
+        message: "Validation error",
+        errors: formatted,
       }),
-      STATUS.CLIENT_ERROR.BAD_REQUEST // Bad Request
+      STATUS.CLIENT_ERROR.BAD_REQUEST
     );
-  } else if (err instanceof Error) {
-    // Log runtime errors
+  }
+
+  // 2) Our standardized API errors
+  if (err instanceof ApiError) {
     logger.error({
       level: "error",
       message: err.message,
-      stack: isProduction ? undefined : err.stack,
-      method: c.req.method,
-      url: c.req.url,
+      details: err.errors,
+      stack: isProd ? undefined : err.stack,
+      method,
+      url,
     });
 
-    // Return internal server error response
     return c.json(
       new ApiResponse({
         success: false,
-        message: isProduction ? "Internal Server Error" : err.message,
-        errors: isProduction ? ["An unexpected error occurred"] : [err.message],
+        message: err.message,
+        errors: err.errors,
       }),
-      STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR
+      err.statusCode
     );
-  } else {
-    // Log unknown errors
+  }
+
+  // 3) Other runtime Errors
+  if (err instanceof Error) {
     logger.error({
       level: "error",
-      message: "Unknown error occurred",
-      details: err,
-      method: c.req.method,
-      url: c.req.url,
+      message: err.message,
+      stack: isProd ? undefined : err.stack,
+      method,
+      url,
     });
+
+    // In prod: hide details; in dev: echo the message
+    const message = isProd ? "Internal Server Error" : err.message;
+    const errors = isProd
+      ? [{ message: "An unexpected error occurred" }]
+      : [{ message: err.message }];
 
     return c.json(
       new ApiResponse({
         success: false,
-        message: "Internal Server Error",
-        errors: isProduction
-          ? ["An unexpected error occurred"]
-          : ["Unknown error occurred"],
+        message,
+        errors,
       }),
       STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR
     );
   }
+
+  // 4) Non-Error throwables
+  logger.error({
+    level: "error",
+    message: "Unknown error type thrown",
+    details: err,
+    method,
+    url,
+  });
+
+  return c.json(
+    new ApiResponse({
+      success: false,
+      message: "Internal Server Error",
+      errors: [{ message: "Unknown error occurred" }],
+    }),
+    STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR
+  );
 };
 
 export default errorHandler;
