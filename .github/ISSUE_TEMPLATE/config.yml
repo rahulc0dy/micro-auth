@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Project Documentation
+    url: https://github.com/rahulc0dy/micro-auth
+    about: Please check our documentation for common questions and answers before creating an issue.
+  - name: Discussions
+    url: https://github.com/rahulc0dy/micro-auth/discussions
+    about: For questions, ideas, or general discussions about the project.
