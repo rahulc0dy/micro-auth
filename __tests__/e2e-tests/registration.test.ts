@@ -37,7 +37,7 @@ describe("Registration", () => {
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
     expect(jsonResponse.success).toBe(false);
-    expect(jsonResponse.message).toBe("Failed to validate credentials.");
+    expect(jsonResponse.message).toBe("Validation error");
     expect(jsonResponse.errors).toBeDefined();
     expect(jsonResponse.errors[0]).toEqual({
       field: "email",
@@ -61,7 +61,7 @@ describe("Registration", () => {
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
     expect(jsonResponse.success).toBe(false);
-    expect(jsonResponse.message).toBe("Failed to validate credentials.");
+    expect(jsonResponse.message).toBe("Validation error");
     expect(jsonResponse.errors).toBeDefined();
     expect(jsonResponse.errors[0]).toEqual({
       field: "email",
@@ -81,6 +81,6 @@ describe("Registration", () => {
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
     expect(jsonResponse.success).toBe(false);
-    expect(jsonResponse.message).toBe("Failed to validate credentials.");
+    expect(jsonResponse.message).toBe("Validation error");
   });
 });

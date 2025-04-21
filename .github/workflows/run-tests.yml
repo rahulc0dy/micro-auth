@@ -57,7 +57,7 @@ jobs:
           DATABASE_URL: postgres://test:test@localhost:5432/test
           PORT: ${{ secrets.PORT }}
           APP_ENV: test
-        run: bun drizzle-kit push && bun test "__tests__/e2e tests"
+        run: bun drizzle-kit push && bun test "__tests__/e2e-tests"
 
 
   unit-tests:
@@ -83,4 +83,4 @@ jobs:
           DATABASE_URL: postgres://test:test@localhost:5432/test
           PORT: ${{ secrets.PORT }}
           APP_ENV: test
-        run: bun test "__tests__/unit tests"
+        run: bun test "__tests__/unit-tests"
