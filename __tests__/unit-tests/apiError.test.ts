@@ -35,6 +35,7 @@ describe("ApiError", () => {
     expect(error.message).toBe(errorMessage);
     expect(error.statusCode).toBe(STATUS.CLIENT_ERROR.UNAUTHORIZED);
     expect(error.errors).toEqual(errorDetails);
+    expect(error.name).toBe("ApiError");
   });
 
   test("should use default status code if not provided", () => {
@@ -62,6 +63,12 @@ describe("ApiError", () => {
     expect(error.errors).toEqual([{ message: errorMessage }]);
   });
 
+  test("should handle empty string message", () => {
+    const error = new ApiError("");
+    expect(error.message).toBe("");
+    expect(error.errors).toEqual([{ message: "" }]);
+  });
+
   test("should handle cause in options", () => {
     const cause = new Error("Original error");
     const error = new ApiError("Error with cause", undefined, undefined, {
@@ -81,5 +88,16 @@ describe("ApiError", () => {
     });
 
     expect(error.cause).toBe(cause);
+  });
+
+  test("should preserve stack trace with cause", () => {
+    const cause = new Error("Original error");
+    const error = new ApiError("Error with cause", undefined, undefined, {
+      cause,
+    });
+
+    expect(error.cause).toBe(cause);
+    // Check that error stack includes reference to cause
+    expect(error.stack).toContain("ApiError: Error with cause");
   });
 });

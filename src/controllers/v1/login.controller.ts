@@ -42,9 +42,14 @@ export const emailPassLoginController = async (c: Context) => {
 
   if (!passwordMatches) {
     throw new ApiError({
-      message: "The password you entered is incorrect.",
+      message: "Incorrect email or password. Please try again.",
       statusCode: STATUS.CLIENT_ERROR.BAD_REQUEST,
-      errors: [{ message: "Password is incorrect", field: password }],
+      errors: [
+        {
+          message: "email or password is incorrect",
+          field: "email or password",
+        },
+      ],
     });
   }
 

@@ -17,13 +17,20 @@ describe("Login", () => {
       password: testPassword,
     });
 
-    await app.request(`${urlPrefix}/register/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: registrationFormData.toString(),
-    });
+    const registerResponse = await app.request(
+      `${urlPrefix}/register/email-pass`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: registrationFormData.toString(),
+      }
+    );
+
+    const registerJson = await registerResponse.json();
+    expect(registerResponse.status).toBe(201);
+    expect(registerJson.success).toBe(true);
   });
 
   test("POST /login/email-pass with valid credentials", async () => {
@@ -86,9 +93,13 @@ describe("Login", () => {
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
     expect(jsonResponse.success).toBe(false);
-    expect(jsonResponse.message).toBe("The password you entered is incorrect.");
+    expect(jsonResponse.message).toBe(
+      "Incorrect email or password. Please try again."
+    );
     expect(jsonResponse.errors).toBeDefined();
-    expect(jsonResponse.errors[0].message).toBe("Password is incorrect");
+    expect(jsonResponse.errors[0].message).toBe(
+      "email or password is incorrect"
+    );
   });
 
   test("POST /login/email-pass with missing email", async () => {
@@ -109,6 +120,12 @@ describe("Login", () => {
     expect(jsonResponse.success).toBe(false);
     expect(jsonResponse.message).toBe("Validation error");
     expect(jsonResponse.errors).toBeDefined();
+    expect(
+      jsonResponse.errors.some(
+        (error: any) =>
+          error.field === "email" && error.message.includes("Required")
+      )
+    ).toBe(true);
   });
 
   test("POST /login/email-pass with missing password", async () => {
@@ -129,6 +146,12 @@ describe("Login", () => {
     expect(jsonResponse.success).toBe(false);
     expect(jsonResponse.message).toBe("Validation error");
     expect(jsonResponse.errors).toBeDefined();
+    expect(
+      jsonResponse.errors.some(
+        (error: any) =>
+          error.field === "password" && error.message.includes("Required")
+      )
+    ).toBe(true);
   });
 
   test("POST /login/email-pass with invalid email format", async () => {
@@ -150,6 +173,12 @@ describe("Login", () => {
     expect(jsonResponse.success).toBe(false);
     expect(jsonResponse.message).toBe("Validation error");
     expect(jsonResponse.errors).toBeDefined();
+    expect(
+      jsonResponse.errors.some(
+        (error: any) =>
+          error.field === "email" && error.message.includes("Invalid")
+      )
+    ).toBe(true);
   });
 
   test("POST /login/email-pass with empty payload", async () => {
@@ -168,5 +197,17 @@ describe("Login", () => {
     expect(jsonResponse.success).toBe(false);
     expect(jsonResponse.message).toBe("Validation error");
     expect(jsonResponse.errors).toBeDefined();
+    expect(
+      jsonResponse.errors.some(
+        (error: any) =>
+          error.field === "email" && error.message.includes("Required")
+      )
+    ).toBe(true);
+    expect(
+      jsonResponse.errors.some(
+        (error: any) =>
+          error.field === "password" && error.message.includes("Required")
+      )
+    ).toBe(true);
   });
 });
