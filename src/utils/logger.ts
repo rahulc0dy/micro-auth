@@ -1,5 +1,5 @@
 import { createLogger, format, transports } from "winston";
-import { LOG_LEVEL } from "../env.ts";
+import { LOG_DIR, LOG_LEVEL } from "../env.ts";
 import chalk from "chalk";
 
 const { timestamp, combine, printf, json } = format;
@@ -9,7 +9,7 @@ const jsonLogFormat = combine(
   printf(({ level, message, timestamp }) => {
     return `[${timestamp}] ${level.toUpperCase()}: ${message}`;
   }),
-  json(),
+  json()
 );
 
 const consoleLogFormat = combine(
@@ -35,7 +35,7 @@ const consoleLogFormat = combine(
     const styledTimestamp = chalk.gray(`[${timestamp}]`);
 
     return `${styledTimestamp} ${styledLevel}: ${message}`;
-  }),
+  })
 );
 
 const logger = createLogger({
@@ -46,7 +46,7 @@ const logger = createLogger({
       format: consoleLogFormat,
     }),
     new transports.File({
-      filename: "logs/app.log",
+      filename: `${LOG_DIR}/app.log`,
       format: jsonLogFormat,
     }),
   ],

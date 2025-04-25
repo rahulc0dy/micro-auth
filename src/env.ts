@@ -1,10 +1,18 @@
 import { createEnv } from "@t3-oss/env-core";
-import { z, ZodError } from "zod";
+import { z, type ZodIssue } from "zod";
 import { configDotenv } from "dotenv";
 
 configDotenv({ path: "./.env" });
 
-export const { PORT, APP_ENV, LOG_LEVEL, LOG_DIR, DATABASE_URL } = createEnv({
+export const {
+  PORT,
+  APP_ENV,
+  LOG_LEVEL,
+  LOG_DIR,
+  DATABASE_URL,
+  RATE_LIMIT,
+  RATE_LIMIT_WINDOW,
+} = createEnv({
   server: {
     PORT: z
       .string()
@@ -19,6 +27,18 @@ export const { PORT, APP_ENV, LOG_LEVEL, LOG_DIR, DATABASE_URL } = createEnv({
       .optional()
       .default("info"),
     LOG_DIR: z.string().optional().default("logs"),
+    RATE_LIMIT: z
+      .string()
+      .optional()
+      .default("100")
+      .transform((l) => parseInt(l)),
+    RATE_LIMIT_WINDOW: z
+      .string()
+      .optional()
+      .default("600000")
+      .transform((w) => {
+        return parseInt(w);
+      }),
     DATABASE_URL: z.string().url(),
   },
 
@@ -31,11 +51,8 @@ export const { PORT, APP_ENV, LOG_LEVEL, LOG_DIR, DATABASE_URL } = createEnv({
   emptyStringAsUndefined: true,
 
   // Called when the schema validation fails.
-  onValidationError: (error: ZodError) => {
-    console.error(
-      "❌ Invalid environment variables:",
-      error.flatten().fieldErrors
-    );
+  onValidationError: (issues: readonly ZodIssue[]) => {
+    console.error("❌ Invalid environment variables:", issues);
     throw new Error("Invalid environment variables");
   },
 });
