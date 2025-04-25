@@ -4,7 +4,7 @@ import registrationRouter from "./registration.route.ts";
 import loginRouter from "./login.route.ts";
 
 export const registerV1Routes = (app: Hono) => {
-  // Add base prefix '/v1' to all routes
+  // Add the base prefix '/v1' to all routes
   const v1Routes = new Hono();
 
   v1Routes.route("/health-check", healthCheckRouter);
