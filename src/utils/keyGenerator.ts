@@ -6,7 +6,9 @@ export const keyGenerator = (c: Context): string => {
   const ip = forwardedFor
     ? forwardedFor.split(",")[0].trim()
     : getConnInfo(c).remote.address;
-  const userAgent = c.req.header("User-Agent") || "unknown";
+  const userAgent = (c.req.header("User-Agent") || "unknown")
+    .toLowerCase()
+    .trim();
 
   return `${ip}-${userAgent}`;
 };

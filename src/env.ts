@@ -36,9 +36,7 @@ export const {
       .string()
       .optional()
       .default("600000")
-      .transform((w) => {
-        return parseInt(w);
-      }),
+      .transform((w) => parseInt(w)),
     DATABASE_URL: z.string().url(),
   },
 
