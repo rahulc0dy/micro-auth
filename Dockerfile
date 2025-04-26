@@ -1,5 +1,5 @@
 # Use the official Bun image
-FROM oven/bun:latest as base
+FROM oven/bun:1.2-alpine as base
 
 WORKDIR /app
 
