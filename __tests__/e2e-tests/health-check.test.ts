@@ -1,6 +1,6 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import app from "../../src/app.ts";
-import { SENSITIVE_SERVER_DATA_AUTHORISATION_TOKEN } from "../../src/env.ts";
+import { SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN } from "../../src/env.ts";
 import { db } from "../../src/database";
 import { ApiError } from "../../src/utils/ApiError.ts";
 
@@ -46,7 +46,7 @@ describe("Health Check Endpoints", () => {
     const res = await app.request(`${urlPrefix}/health-check/server-info`, {
       headers: {
         "x-sensitive-data-authorisation-token":
-          SENSITIVE_SERVER_DATA_AUTHORISATION_TOKEN,
+          SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN,
       },
     });
     expect(res.status).toBe(200);

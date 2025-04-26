@@ -2,7 +2,10 @@ import { createEnv } from "@t3-oss/env-core";
 import { z, type ZodIssue } from "zod";
 import { configDotenv } from "dotenv";
 
-configDotenv({ path: "./.env.***" });
+configDotenv({ path: "./.env" });
+configDotenv({ path: "./.env.test", override: true });
+configDotenv({ path: "./.env.development", override: true });
+configDotenv({ path: "./.env.production", override: true });
 
 export const {
   PORT,
@@ -12,7 +15,7 @@ export const {
   DATABASE_URL,
   RATE_LIMIT,
   RATE_LIMIT_WINDOW,
-  SENSITIVE_SERVER_DATA_AUTHORISATION_TOKEN,
+  SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN,
 } = createEnv({
   server: {
     PORT: z
@@ -39,7 +42,7 @@ export const {
       .default("600000")
       .transform((w) => parseInt(w)),
     DATABASE_URL: z.string().url(),
-    SENSITIVE_SERVER_DATA_AUTHORISATION_TOKEN: z.string().min(10),
+    SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: z.string().min(10),
   },
 
   /**
