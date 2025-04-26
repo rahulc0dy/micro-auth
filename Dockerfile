@@ -12,7 +12,7 @@ LABEL maintainer="your-email@example.com" \
 COPY . .
 
 # Set environment variables (if needed)
-ENV PORT=8000 APP_ENV="production" LOG_LEVEL="info" LOG_DIR="/app/logs"
+ENV PORT=8000 NODE_ENV="production" LOG_LEVEL="info" LOG_DIR="/app/logs"
 
 # Cache and download Deno dependencies
 RUN deno cache src/index.ts

@@ -13,12 +13,7 @@ export const reqLogMiddleware = async (
   const url = c.req.url;
   const status = c.res.status;
 
-  const logObject = {
-    method,
-    url,
-    status,
-    responseTime: `${duration}ms`,
-  };
-
-  logger.info(logObject);
+  if (status >= 400)
+    logger.warn(`${method} ${url} - ${status} - ${duration}ms`);
+  else logger.info(`${method} ${url} - ${status} - ${duration}ms`);
 };

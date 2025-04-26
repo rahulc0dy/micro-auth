@@ -1,13 +1,13 @@
 import type { Context } from "hono";
 import logger from "./logger.ts";
-import { APP_ENV } from "../env.ts";
+import { NODE_ENV } from "../env.ts";
 import { STATUS } from "../constants/statusCodes.ts";
 import { z } from "zod";
 import { ApiResponse } from "./ApiResponse.ts";
 import { ApiError } from "./ApiError.ts";
 
 const errorHandler = (err: unknown, c: Context) => {
-  const isProd = APP_ENV === "production";
+  const isProd = NODE_ENV === "production";
   const { method, url } = { method: c.req.method, url: c.req.url };
 
   // 1) Zod validation errors
