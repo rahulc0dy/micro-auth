@@ -4,11 +4,6 @@
 # For more help, visit the .dockerignore file reference guide at
 # https://docs.docker.com/go/build-context-dockerignore/
 
-**/.DS_Store
-**/__pycache__
-**/.venv
-**/.classpath
-**/.dockerignore
 **/.env
 **/.git
 **/.gitignore
@@ -33,10 +28,9 @@
 LICENSE
 README.md
 .deno
-.env
+.env*
 .idea
 .vscode
 __tests__
 .dockerignore
-deno.lock
 *.log
