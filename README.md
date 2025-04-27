@@ -2,20 +2,20 @@
   <img src="media/logo.png" alt="Authentication Microservice Logo" style="padding:10px" width="200">
   <br>
   <a href="https://github.com/rahulc0dy/micro-auth/releases">
-    <img src="https://img.shields.io/badge/1.0.0-teal?label=version" alt="Deno Version">
+    <img src="https://img.shields.io/badge/1.0.0-teal?label=version" alt="Release Version">
   </a>
   <a href="https://github.com/rahulc0dy/micro-auth/issues">
-    <img src="https://img.shields.io/github/issues/rahulc0dy/micro-auth" alt="Deno Version">
+    <img src="https://img.shields.io/github/issues/rahulc0dy/micro-auth" alt="GitHub Issues">
   </a>
   <a href="https://github.com/rahulc0dy/micro-auth">
     <img src="https://img.shields.io/github/stars/rahulc0dy/micro-auth" alt="GitHub Stars">
   </a>
 </div>
 
-# Authentication Microservice
+# Micro Auth
 
-A robust authentication microservice built with [Deno](https://deno.land/) and [Hono.js](https://hono.dev/). This
-microservice provides essential authentication features, including support for **JWT**, **OAuth**, *
+A robust authentication microservice built with [Bun](https://bun.sh/) and [Hono](https://hono.dev/).  
+This microservice provides essential authentication features, including support for **JWT**, **OAuth**, *
 *email/phone-password login**, and **two-factor authentication (2FA)**.
 
 ---
@@ -23,15 +23,14 @@ microservice provides essential authentication features, including support for *
 [![Tests](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml)
 [![Builds](https://github.com/rahulc0dy/micro-auth/actions/workflows/builds.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/builds.yml)
 
-
 ---
 
 ## 🚀 Features
 
 - **🔒 JWT (JSON Web Tokens)**: Secure token-based authentication for stateless session management.
 - **🌐 OAuth**: Simplified third-party authentication using providers like Google, Facebook, and GitHub.
-- **📧 Email/Phone and Password Login**: Classic user authentication with support for email or phone as identifiers.
-- **🛡️ Two-Factor Authentication (2FA)**: Enhanced security through OTP-based two-factor authentication.
+- **📧 Email/Phone and Password Login**: Standard user authentication using email or phone.
+- **🛡️ Two-Factor Authentication (2FA)**: Enhanced security with OTP-based verification.
 
 ---
 
@@ -44,6 +43,7 @@ microservice provides essential authentication features, including support for *
 - [Usage](#-usage)
 - [Technologies Used](#-technologies-used)
 - [License](#-license)
+- [Contributing](#contributing)
 
 ---
 
@@ -51,6 +51,8 @@ microservice provides essential authentication features, including support for *
 
 - [Bun](https://bun.sh/) (v1.2 or higher)
 - [Git](https://git-scm.com/) (v2.0 or higher)
+- [Docker](https://www.docker.com/) (optional, for containerized deployment)
+- [Node.js](https://nodejs.org/) (if using scripts/tools that require Node)
 
 ---
 
@@ -62,26 +64,32 @@ microservice provides essential authentication features, including support for *
    cd micro-auth
    ```
 
-2. **Setup environment variables:**
+2. **Set up environment variables:**
 
-   Set up your environment variables as shown in the [_Environment Variables_](#️-environment-variables)
-   section.<br><br>
+   Create a `.env.production` or `.env` file in the root directory, using variables outlined in `.env.example`.
 
 3. **Install dependencies:**
    ```bash
    bun install
    ```
 
-4. **Run the application in dev mode:**
+4. **Run the application:**
    ```bash
-   bun run dev
+   bun run index.ts
+   ```
+   Or use Docker Compose:
+   ```bash
+   docker-compose up --build
    ```
 
 ---
 
 ## 🛠️ Environment Variables
 
-Create a `.env` file in the root of your project with variables specified in the `.env.example` file.
+Create a `.env.production` or `.env` file in the root of your project with variables specified in the `.env.example`
+file.  
+When deploying with Docker Compose, environment variables are injected at runtime and **not bundled in the image** (see
+`.dockerignore`).
 
 ---
 
@@ -151,44 +159,46 @@ Create a `.env` file in the root of your project with variables specified in the
 
 ### Register a New User
 
-```bash
-curl -X POST http://localhost:<PORT>/auth/register \
--H "Content-Type: application/json" \
--d '{ "email": "user@example.com", "password": "securepassword" }'
 ```
+bash curl -X POST http://localhost:8000/auth/register
+    -H "Content-Type: application/json"
+    -d '{ "email": "user@example.com", "password": "securepassword" }'
+``` 
 
 ### Login
 
-```bash
-curl -X POST http://localhost:<PORT>/auth/login \
--H "Content-Type: application/json" \
--d '{ "email": "user@example.com", "password": "securepassword" }'
 ```
+bash curl -X POST http://localhost:8000/auth/login
+    -H "Content-Type: application/json"
+    -d '{ "email": "user@example.com", "password": "securepassword" }'
+``` 
 
 ### Set Up 2FA
 
-```bash
-curl -X POST http://localhost:<PORT>/auth/2fa/setup \
--H "Authorization: Bearer <JWT_TOKEN>"
 ```
+bash curl -X POST http://localhost:8000/auth/2fa/setup
+    -H "Authorization: Bearer <JWT_TOKEN>"
+``` 
 
 ### Verify 2FA Code
 
-```bash
-curl -X POST http://localhost:<PORT>/auth/2fa/verify \
--H "Authorization: Bearer <JWT_TOKEN>" \
--d '{ "otp": "123456" }'
 ```
+bash curl -X POST http://localhost:8000/auth/2fa/verify
+    -H "Authorization: Bearer <JWT_TOKEN>"
+    -d '{ "otp": "123456" }'
+``` 
 
 ---
 
 ## 🛠️ Technologies Used
 
-- **Deno**: A modern runtime for JavaScript and TypeScript.
-- **Hono.js**: Lightweight and fast web framework.
-- **JWT**: Secure token management.
-- **OAuth**: Simplified third-party authentication.
-- **Two-Factor Authentication**: Enhanced security for user accounts.
+- **Bun**: Ultra-fast JavaScript runtime
+- **Hono**: Lightweight and fast web framework
+- **Drizzle ORM**: SQL ORM for type-safe database access
+- **PostgreSQL**: Database backend (with support for `DATABASE_URL`)
+- **JWT**: Secure token management
+- **OAuth**: Third-party authentication
+- **Two-Factor Authentication**: Enhanced user security
 
 ---
 
@@ -196,8 +206,10 @@ curl -X POST http://localhost:<PORT>/auth/2fa/verify \
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+---
+
 ## Contributing
 
-We welcome contributions to make Authentication Microservice better for everyone.
+We welcome contributions to make Micro Auth better for everyone.  
 Please review our [Contributing Guidelines](https://github.com/rahulc0dy/micro-auth/blob/master/docs/CONTRIBUTING.md) to
 get started.

@@ -56,7 +56,8 @@ jobs:
         env:
           DATABASE_URL: postgres://test:test@localhost:5432/test
           PORT: ${{ secrets.PORT }}
-          APP_ENV: test
+          NODE_ENV: test
+          SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: valid_dummy_token
         run: bun drizzle-kit push && bun test "__tests__/e2e-tests"
 
 
@@ -82,5 +83,6 @@ jobs:
         env:
           DATABASE_URL: postgres://test:test@localhost:5432/test
           PORT: ${{ secrets.PORT }}
-          APP_ENV: test
+          NODE_ENV: test
+          SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: valid_dummy_token
         run: bun test "__tests__/unit-tests"

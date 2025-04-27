@@ -3,12 +3,15 @@ import { registerV1Routes } from "./routes/v1/routes.config.ts";
 import { reqLogMiddleware } from "./middlewares/requestLog.middleware.ts";
 import errorHandler from "./utils/errorHandler.ts";
 import { rateLimiter } from "hono-rate-limiter";
-import { APP_ENV, RATE_LIMIT, RATE_LIMIT_WINDOW } from "./env.ts";
+import { NODE_ENV, RATE_LIMIT, RATE_LIMIT_WINDOW } from "./env.ts";
 import { keyGenerator } from "./utils/keyGenerator.ts";
+import { timing } from "hono/timing";
 
 const app = new Hono();
 
-if (APP_ENV == "production")
+app.use(timing());
+
+if (NODE_ENV == "production") {
   app.use(
     rateLimiter({
       windowMs: RATE_LIMIT_WINDOW,
@@ -17,6 +20,7 @@ if (APP_ENV == "production")
       keyGenerator,
     })
   );
+}
 
 app.use(reqLogMiddleware);
 

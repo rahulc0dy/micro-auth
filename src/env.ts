@@ -3,22 +3,26 @@ import { z, type ZodIssue } from "zod";
 import { configDotenv } from "dotenv";
 
 configDotenv({ path: "./.env" });
+configDotenv({ path: "./.env.test", override: true });
+configDotenv({ path: "./.env.development", override: true });
+configDotenv({ path: "./.env.production", override: true });
 
 export const {
   PORT,
-  APP_ENV,
+  NODE_ENV,
   LOG_LEVEL,
   LOG_DIR,
   DATABASE_URL,
   RATE_LIMIT,
   RATE_LIMIT_WINDOW,
+  SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN,
 } = createEnv({
   server: {
     PORT: z
       .string()
       .trim()
       .transform((PORT) => parseInt(PORT)),
-    APP_ENV: z
+    NODE_ENV: z
       .enum(["production", "development", "test"])
       .optional()
       .default("development"),
@@ -38,6 +42,7 @@ export const {
       .default("600000")
       .transform((w) => parseInt(w)),
     DATABASE_URL: z.string().url(),
+    SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: z.string().min(10),
   },
 
   /**
