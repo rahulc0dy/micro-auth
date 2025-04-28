@@ -159,31 +159,31 @@ When deploying with Docker Compose, environment variables are injected at runtim
 
 ### Register a New User
 
-```
-bash curl -X POST http://localhost:8000/auth/register
+```bash
+curl -X POST http://localhost:8000/auth/register
     -H "Content-Type: application/json"
     -d '{ "email": "user@example.com", "password": "securepassword" }'
 ``` 
 
 ### Login
 
-```
-bash curl -X POST http://localhost:8000/auth/login
+```bash
+curl -X POST http://localhost:8000/auth/login
     -H "Content-Type: application/json"
     -d '{ "email": "user@example.com", "password": "securepassword" }'
 ``` 
 
 ### Set Up 2FA
 
-```
-bash curl -X POST http://localhost:8000/auth/2fa/setup
+```bash
+curl -X POST http://localhost:8000/auth/2fa/setup
     -H "Authorization: Bearer <JWT_TOKEN>"
 ``` 
 
 ### Verify 2FA Code
 
-```
-bash curl -X POST http://localhost:8000/auth/2fa/verify
+```bash
+curl -X POST http://localhost:8000/auth/2fa/verify
     -H "Authorization: Bearer <JWT_TOKEN>"
     -d '{ "otp": "123456" }'
 ``` 

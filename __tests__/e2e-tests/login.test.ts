@@ -6,7 +6,7 @@ const urlPrefix = "/api/v1";
 describe("Login", () => {
   // Create a test user that we can use for login tests
   let testEmail: string;
-  let testPassword = "test@example";
+  const testPassword = "test@example";
 
   beforeAll(async () => {
     // Register a test user that we can use for login tests

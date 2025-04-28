@@ -25,7 +25,12 @@ const consoleLogFormat = combine(
     if (typeof message === "object") {
       try {
         message = JSON.stringify(message, null, 2);
-      } catch (_error) {
+      } catch (error) {
+        if (error instanceof TypeError) {
+          message = error.message;
+        } else if (error instanceof Error) {
+          message = `${error.name} - ${error.message}`;
+        }
         message =
           "[Circular Reference Error] Unable to stringify object. Please see log file.";
       }
