@@ -1,8 +1,9 @@
-import type { Context } from "hono";
-import { ApiResponse } from "../../utils/ApiResponse.ts";
-import { db } from "../../database";
 import { sql } from "drizzle-orm";
+import type { Context } from "hono";
+
+import { db } from "../../database";
 import { ApiError } from "../../utils/ApiError.ts";
+import { ApiResponse } from "../../utils/ApiResponse.ts";
 import logger from "../../utils/logger.ts";
 
 export const serverHealthCheckController = (c: Context) => {

@@ -6,16 +6,18 @@ Thank you for helping us improve the security of **Micro-Auth**. If you find a v
 follow these steps to report it:
 
 1. **Contact Us**:
-    - Email codyrahulop [at] gmail [dot] com with details of the vulnerability.
-    - Use the subject line: `Security Vulnerability Report`.
+    - Email security concerns directly to the repository owner.
+    - Alternatively, use GitHub's private vulnerability reporting feature.
 
 2. **Provide the Following Information**:
+
     - A detailed description of the vulnerability.
     - Steps to reproduce the issue.
     - Any potential impact the vulnerability could have.
     - (Optional) A suggested fix or mitigation.
 
 3. **Wait for Response**:
+
     - We will acknowledge receipt of your report within **48 hours**.
     - After validating the vulnerability, we aim to resolve it as quickly as possible. You will be notified when the
       issue is fixed.
@@ -31,7 +33,7 @@ fixed unless the issue also affects the latest version.
 
 | Version | Supported   |
 |---------|-------------|
-| 1.0.0   | ✅ Supported |
+| 1.1.0   | ✅ Supported |
 
 ---
 

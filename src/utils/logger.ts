@@ -1,6 +1,7 @@
-import { createLogger, format, transports } from "winston";
-import { LOG_DIR, LOG_LEVEL } from "../env.ts";
 import chalk from "chalk";
+import { createLogger, format, transports } from "winston";
+
+import { LOG_DIR, LOG_LEVEL } from "../env.ts";
 
 const { timestamp, combine, printf, json } = format;
 
@@ -25,9 +26,15 @@ const consoleLogFormat = combine(
     if (typeof message === "object") {
       try {
         message = JSON.stringify(message, null, 2);
-      } catch (_error) {
-        message =
-          "[Circular Reference Error] Unable to stringify object. Please see log file.";
+      } catch (error) {
+        if (error instanceof TypeError) {
+          message = error.message;
+        } else if (error instanceof Error) {
+          message = `${error.name} - ${error.message}`;
+        } else {
+          message =
+            "[Circular Reference Error] Unable to stringify object. Please see log file.";
+        }
       }
     }
 

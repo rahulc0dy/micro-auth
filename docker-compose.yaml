@@ -6,9 +6,15 @@ services:
       - "8000:8000"
     env_file:
       - .env.production
-    command: [ "bun", "run", "index.ts" ]
+    command: ["bun", "run", "index.ts"]
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8000/api/v1/health-check/server" ]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://localhost:8000/api/v1/health-check/server",
+        ]
       interval: 30s
       timeout: 3s
       retries: 2

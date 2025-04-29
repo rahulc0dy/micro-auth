@@ -15,13 +15,13 @@
 # Micro Auth
 
 A robust authentication microservice built with [Bun](https://bun.sh/) and [Hono](https://hono.dev/).  
-This microservice provides essential authentication features, including support for **JWT**, **OAuth**, *
-*email/phone-password login**, and **two-factor authentication (2FA)**.
+This microservice provides essential authentication features, including support for **JWT**, **OAuth**, **Email/Phone
+and Password Login**, and **Two-Factor Authentication (2FA)**.
 
 ---
 
 [![Tests](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml)
-[![Builds](https://github.com/rahulc0dy/micro-auth/actions/workflows/builds.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/builds.yml)
+[![Builds](https://github.com/rahulc0dy/micro-auth/actions/workflows/lint.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/lint.yml)
 
 ---
 
@@ -59,6 +59,7 @@ This microservice provides essential authentication features, including support 
 ## ⚙️ Setup
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/rahulc0dy/micro-auth.git
    cd micro-auth
@@ -69,6 +70,7 @@ This microservice provides essential authentication features, including support 
    Create a `.env.production` or `.env` file in the root directory, using variables outlined in `.env.example`.
 
 3. **Install dependencies:**
+
    ```bash
    bun install
    ```
@@ -159,34 +161,34 @@ When deploying with Docker Compose, environment variables are injected at runtim
 
 ### Register a New User
 
-```
-bash curl -X POST http://localhost:8000/auth/register
+```bash
+curl -X POST http://localhost:8000/auth/register
     -H "Content-Type: application/json"
     -d '{ "email": "user@example.com", "password": "securepassword" }'
-``` 
+```
 
 ### Login
 
-```
-bash curl -X POST http://localhost:8000/auth/login
+```bash
+curl -X POST http://localhost:8000/auth/login
     -H "Content-Type: application/json"
     -d '{ "email": "user@example.com", "password": "securepassword" }'
-``` 
+```
 
 ### Set Up 2FA
 
-```
-bash curl -X POST http://localhost:8000/auth/2fa/setup
+```bash
+curl -X POST http://localhost:8000/auth/2fa/setup
     -H "Authorization: Bearer <JWT_TOKEN>"
-``` 
+```
 
 ### Verify 2FA Code
 
-```
-bash curl -X POST http://localhost:8000/auth/2fa/verify
+```bash
+curl -X POST http://localhost:8000/auth/2fa/verify
     -H "Authorization: Bearer <JWT_TOKEN>"
     -d '{ "otp": "123456" }'
-``` 
+```
 
 ---
 

@@ -7,7 +7,7 @@ name: Mark stale issues and pull requests
 
 on:
   schedule:
-    - cron: '26 17 * * *' # Runs daily at 17:26 UTC
+    - cron: "26 17 * * *" # Runs daily at 17:26 UTC
 
 jobs:
   stale:
@@ -23,8 +23,8 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
           # Customize stale durations
-          days-before-stale: 30         # Warn after 30 days of inactivity
-          days-before-close: 7          # Close 7 days after marking stale
+          days-before-stale: 30 # Warn after 30 days of inactivity
+          days-before-close: 7 # Close 7 days after marking stale
 
           # Messages for stale issues and PRs
           stale-issue-message: |
@@ -37,16 +37,16 @@ jobs:
             Thank you for your efforts to improve the project!
 
           # Labels to add for stale issues and PRs
-          stale-issue-label: 'stale'
-          stale-pr-label: 'stale'
+          stale-issue-label: "stale"
+          stale-pr-label: "stale"
 
           # Exclude specific labels or milestones
-          exempt-issue-labels: 'pinned, backlog, help-wanted' # Issues with these labels are never marked stale
-          exempt-pr-labels: 'in-progress, work-in-progress, help-wanted' # PRs with these labels are excluded
-          exempt-milestones: 'v1.0.0' # Items with these milestones are excluded
+          exempt-issue-labels: "pinned, backlog, help-wanted" # Issues with these labels are never marked stale
+          exempt-pr-labels: "in-progress, work-in-progress, help-wanted" # PRs with these labels are excluded
+          exempt-milestones: "v1.0.0" # Items with these milestones are excluded
 
           # Other options
-          only-labels: '' # Only mark issues/PRs with these labels as stale (leave blank to apply globally)
+          only-labels: "" # Only mark issues/PRs with these labels as stale (leave blank to apply globally)
           operations-per-run: 30 # Limit the number of issues/PRs processed in each run (default is 30)
           remove-stale-when-updated: true # Remove stale label if someone comments or updates
           debug-only: false # Set to true for testing without actually making changes

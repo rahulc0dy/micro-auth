@@ -60,7 +60,6 @@ jobs:
           SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: valid_dummy_token
         run: bun drizzle-kit push && bun test "__tests__/e2e-tests"
 
-
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest

@@ -7,9 +7,9 @@ for everyone.
 ## Table of Contents
 
 - [How to Contribute](#how-to-contribute)
-    - [Reporting Bugs](#reporting-bugs)
-    - [Requesting Features](#requesting-features)
-    - [Submitting Code](#submitting-code)
+  - [Reporting Bugs](#reporting-bugs)
+  - [Requesting Features](#requesting-features)
+  - [Submitting Code](#submitting-code)
 - [Code of Conduct](#code-of-conduct)
 - [Development Setup](#development-setup)
 - [Coding Standards](#coding-standards)
@@ -23,11 +23,11 @@ If you encounter any issues with the **Micro-Auth** service, please follow these
 1. Search the [existing issues](https://github.com/rahulc0dy/micro-auth/issues) to see if the problem has already been
    reported.
 2. If the issue is not listed, open a new issue with the following details:
-    - A clear and concise description of the bug.
-    - Steps to reproduce the bug (if applicable).
-    - Expected vs. actual behavior.
-    - Screenshots or logs if available.
-    - Any additional context.
+   - A clear and concise description of the bug.
+   - Steps to reproduce the bug (if applicable).
+   - Expected vs. actual behavior.
+   - Screenshots or logs if available.
+   - Any additional context.
 
 ### Requesting Features
 
@@ -47,11 +47,12 @@ We love code contributions! To submit code, please follow these steps:
    git clone https://github.com/rahulc0dy/micro-auth.git
    cd micro-auth
    ```
+
 2. Create a new branch for your changes.
 
-    ```bash
-    git checkout -b feature/your-feature-name
-    ```
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
 3. Make your changes and write tests if necessary.
 
@@ -59,20 +60,23 @@ We love code contributions! To submit code, please follow these steps:
 
 5. Run the tests to make sure everything works.
 
-    ```bash
-    deno test
-    ```
+   ```bash
+   deno test
+   ```
+
 6. Commit your changes with a clear message describing what you've done.
 
-    ```bash
-    git add .
-    git commit -m "feat(feature-name): description of your feature"
-    ```
+   ```bash
+   git add .
+   git commit -m "feat(feature-name): description of your feature"
+   ```
+
 7. Push your branch to your fork.
 
-    ```bash
-    git push origin feature/your-feature-name
-    ```
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
 8. Open a pull request against the master branch of the Micro-Auth repository.
 
 When submitting a pull request:
@@ -92,22 +96,23 @@ To get started with development on Micro-Auth, follow these instructions:
 
 1. Clone the repository.
 
-    ```bash
-    git clone https://github.com/rahulc0dy/micro-auth.git
-    ```
+   ```bash
+   git clone https://github.com/rahulc0dy/micro-auth.git
+   ```
 
 2. Install the dependencies.
 
-    ```bash
-    deno task deps
-    ```
+   ```bash
+   deno task deps
+   ```
+
 3. Set up the environment variables as shown in the `.env.example` file
 
 4. Run the development server.
 
-    ```bash
-    deno task dev
-    ```
+   ```bash
+   deno task dev
+   ```
 
 You can now access the authentication microservice on `http://localhost:<PORT>`.
 

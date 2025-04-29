@@ -6,6 +6,5 @@
   "semi": true,
   "useTabs": false,
   "endOfLine": "crlf",
-  "insertFinalNewline": true,
   "editorconfig": true
 }

@@ -1,6 +1,6 @@
 import { createEnv } from "@t3-oss/env-core";
-import { z, type ZodIssue } from "zod";
 import { configDotenv } from "dotenv";
+import { z, type ZodIssue } from "zod";
 
 configDotenv({ path: "./.env" });
 configDotenv({ path: "./.env.test", override: true });
