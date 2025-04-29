@@ -15,13 +15,13 @@
 # Micro Auth
 
 A robust authentication microservice built with [Bun](https://bun.sh/) and [Hono](https://hono.dev/).  
-This microservice provides essential authentication features, including support for **JWT**, **OAuth**, \*
-\*email/phone-password login**, and **two-factor authentication (2FA)\*\*.
+This microservice provides essential authentication features, including support for **JWT**, **OAuth**, **Email/Phone
+and Password Login**, and **Two-Factor Authentication (2FA)**.
 
 ---
 
 [![Tests](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/run-tests.yml)
-[![Builds](https://github.com/rahulc0dy/micro-auth/actions/workflows/builds.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/builds.yml)
+[![Builds](https://github.com/rahulc0dy/micro-auth/actions/workflows/lint.yml/badge.svg)](https://github.com/rahulc0dy/micro-auth/actions/workflows/lint.yml)
 
 ---
 

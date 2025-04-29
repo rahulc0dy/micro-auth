@@ -31,9 +31,10 @@ const consoleLogFormat = combine(
           message = error.message;
         } else if (error instanceof Error) {
           message = `${error.name} - ${error.message}`;
+        } else {
+          message =
+            "[Circular Reference Error] Unable to stringify object. Please see log file.";
         }
-        message =
-          "[Circular Reference Error] Unable to stringify object. Please see log file.";
       }
     }
 

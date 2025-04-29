@@ -61,4 +61,5 @@ export default defineConfig([
       "simple-import-sort/exports": "error",
     },
   },
+  { ignores: ["**/*.test.ts", "**/*.test.js", "**/*.spec.ts", "**/*.spec.js"] },
 ]);
