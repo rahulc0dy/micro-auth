@@ -1,4 +1,5 @@
 import type { ContentfulStatusCode } from "hono/utils/http-status";
+
 import { STATUS } from "../constants/statusCodes.ts";
 
 interface ApiErrorParams {

@@ -1,6 +1,7 @@
 import type { Context, Next } from "hono";
-import { ApiResponse } from "../utils/ApiResponse.ts";
+
 import { SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN } from "../env.ts";
+import { ApiResponse } from "../utils/ApiResponse.ts";
 
 export const checkAuthorisationHeaders = async (c: Context, next: Next) => {
   // Check the header, e.g., 'x-sensitive-data-authorization-token' or 'x-sensitive-data-authorization-token'

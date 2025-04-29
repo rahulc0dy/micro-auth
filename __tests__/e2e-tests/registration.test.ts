@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+
 import app from "../../src/app.ts";
 
 const urlPrefix = "/api/v1";

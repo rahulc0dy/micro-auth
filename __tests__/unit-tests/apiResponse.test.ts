@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+
 import { ApiResponse } from "../../src/utils/ApiResponse.ts";
 
 describe("ApiResponse Unit Tests", () => {

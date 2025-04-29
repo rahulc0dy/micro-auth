@@ -1,7 +1,8 @@
 import { describe, expect, spyOn, test } from "bun:test";
+
 import app from "../../src/app.ts";
-import { SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN } from "../../src/env.ts";
 import { db } from "../../src/database";
+import { SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN } from "../../src/env.ts";
 import { ApiError } from "../../src/utils/ApiError.ts";
 
 const urlPrefix = "/api/v1";

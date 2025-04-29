@@ -1,7 +1,7 @@
 name: Suggestion
 description: Propose an idea or general suggestion for this project
 title: "[SUGGESTION]: "
-labels: [ "suggestion", "question" ]
+labels: ["suggestion", "question"]
 
 body:
   - type: markdown

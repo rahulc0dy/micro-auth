@@ -15,8 +15,8 @@
 # Micro Auth
 
 A robust authentication microservice built with [Bun](https://bun.sh/) and [Hono](https://hono.dev/).  
-This microservice provides essential authentication features, including support for **JWT**, **OAuth**, *
-*email/phone-password login**, and **two-factor authentication (2FA)**.
+This microservice provides essential authentication features, including support for **JWT**, **OAuth**, \*
+\*email/phone-password login**, and **two-factor authentication (2FA)\*\*.
 
 ---
 
@@ -59,6 +59,7 @@ This microservice provides essential authentication features, including support 
 ## ⚙️ Setup
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/rahulc0dy/micro-auth.git
    cd micro-auth
@@ -69,6 +70,7 @@ This microservice provides essential authentication features, including support 
    Create a `.env.production` or `.env` file in the root directory, using variables outlined in `.env.example`.
 
 3. **Install dependencies:**
+
    ```bash
    bun install
    ```
@@ -163,7 +165,7 @@ When deploying with Docker Compose, environment variables are injected at runtim
 curl -X POST http://localhost:8000/auth/register
     -H "Content-Type: application/json"
     -d '{ "email": "user@example.com", "password": "securepassword" }'
-``` 
+```
 
 ### Login
 
@@ -171,14 +173,14 @@ curl -X POST http://localhost:8000/auth/register
 curl -X POST http://localhost:8000/auth/login
     -H "Content-Type: application/json"
     -d '{ "email": "user@example.com", "password": "securepassword" }'
-``` 
+```
 
 ### Set Up 2FA
 
 ```bash
 curl -X POST http://localhost:8000/auth/2fa/setup
     -H "Authorization: Bearer <JWT_TOKEN>"
-``` 
+```
 
 ### Verify 2FA Code
 
@@ -186,7 +188,7 @@ curl -X POST http://localhost:8000/auth/2fa/setup
 curl -X POST http://localhost:8000/auth/2fa/verify
     -H "Authorization: Bearer <JWT_TOKEN>"
     -d '{ "otp": "123456" }'
-``` 
+```
 
 ---
 

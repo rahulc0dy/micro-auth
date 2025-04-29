@@ -1,6 +1,7 @@
-import { createLogger, format, transports } from "winston";
-import { LOG_DIR, LOG_LEVEL } from "../env.ts";
 import chalk from "chalk";
+import { createLogger, format, transports } from "winston";
+
+import { LOG_DIR, LOG_LEVEL } from "../env.ts";
 
 const { timestamp, combine, printf, json } = format;
 

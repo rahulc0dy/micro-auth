@@ -1,11 +1,12 @@
+import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
 import type { Context } from "hono";
 import { z } from "zod";
+
+import { STATUS } from "../../constants/statusCodes.ts";
 import { db } from "../../database";
 import { users } from "../../database/schemas/users.ts";
-import { eq } from "drizzle-orm";
 import { ApiError } from "../../utils/ApiError.ts";
-import { STATUS } from "../../constants/statusCodes.ts";
-import bcrypt from "bcryptjs";
 import { ApiResponse } from "../../utils/ApiResponse.ts";
 
 const EmailPassLoginSchema = z.object({
