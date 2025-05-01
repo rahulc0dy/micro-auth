@@ -45,7 +45,7 @@ jobs:
           exempt-pr-labels: "in-progress,work-in-progress,help-wanted" # PRs with these labels are excluded
           exempt-milestones: "v1.0.0" # Items with these milestones are excluded
 
-          close-issue-label: "wontfix"# Label to mark the closed issue
+          close-issue-label: "wontfix" # Label to mark the closed issue
 
           operations-per-run: 30 # Limit the number of issues/PRs processed in each run (default is 30)
           remove-stale-when-updated: true # Remove stale label if someone comments or updates

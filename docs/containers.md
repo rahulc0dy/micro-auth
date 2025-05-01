@@ -1,11 +1,16 @@
+Here is an improved version of your documentation with the requested enhancements for maintainability and
+troubleshooting.
+
+---
+
 # Running and Extending This Project with Containers
 
 ## 1. **How This Project Uses Containerization**
 
-- Your project ships with a **Dockerfile** that describes how to build a container image for the app.
-- The app container is designed to run using either Docker, Podman, or in orchestrated environments.
-- **Multiservice development** is enabled via `docker-compose.yaml` (add services like Postgres easily here).
-- All configurations (such as database connection settings) are manged via environment variables.
+- This project provides a **Dockerfile** describing how to build a container image for the app.
+- The app container can run using Docker, Podman, or in orchestration environments.
+- **Multi-service development** is enabled via `docker-compose.yaml`. You can add services like Postgres as needed.
+- All configurations (such as database connection settings) are managed via environment variables.
 
 ---
 
@@ -15,14 +20,14 @@
 
 #### **Docker**
 
-```bash
+```shell
 docker build -t myapp:latest .
 docker run -p 8000:8000 --env-file .env.production myapp:latest
 ```
 
 #### **Podman**
 
-```bash
+```shell
 podman build -t myapp:latest .
 podman run -p 8000:8000 --env-file .env.production myapp:latest
 ```
@@ -31,88 +36,40 @@ podman run -p 8000:8000 --env-file .env.production myapp:latest
 
 ## 3. **Adding Services (e.g., Postgres) Using Docker Compose**
 
-To add a database or any other service, add a new service to your `docker-compose.yaml`.
+To add a database or other services, define them in `docker-compose.yaml`.
 
-**Example (Postgres):**
+After updating, bring up containers:
 
-```yaml
-services:
-  app:
-    build:
-      context: .
-    ports:
-      - "8000:8000"
-    env_file:
-      - .env.production
-    command: [ "bun", "run", "index.ts" ]
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres:16
-    environment:
-      POSTGRES_DB: mydb
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mysecretpassword
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-volumes:
-  pgdata:
-```
-
-**Update your `.env.production`** with:
-
-```text
-DATABASE_HOST=postgres
-DATABASE_USER=myuser
-DATABASE_PASSWORD=mysecretpassword
-DATABASE_NAME=mydb
-DATABASE_PORT=5432
-```
-
-**Bring up containers:**
-
-```bash
-docker compose up --build        # Docker Desktop / Docker Compose v2+
+```shell
+docker compose up --build        # With Docker Compose v2+
 podman-compose up --build        # With Podman (if podman-compose installed)
 ```
 
-*You can add other containers (like cache, etc.) similarly.*
+You can check that all containers are running with:
+
+```shell
+docker ps
+# or
+podman ps
+```
 
 ---
 
 ## 4. **Running as a Pod with Podman**
 
-Pods allow you to group containers with shared networking.
+**Create and use a pod:**
 
-**Create a Pod:**
-
-```bash
+```shell
 podman pod create --name mypod -p 8000:8000 -p 5432:5432
 ```
 
-**Run Postgres inside the pod:**
+Add your containers to this pod using `--pod mypod`.  
+Verify running containers and pods:
 
-```bash
-podman run -d --name postgres --pod mypod \
-  -e POSTGRES_DB=mydb \
-  -e POSTGRES_USER=myuser \
-  -e POSTGRES_PASSWORD=mysecretpassword \
-  postgres:16
+```shell
+podman ps
+podman pod ps
 ```
-
-**Run your app inside the pod:**
-
-```bash
-podman run -d --name app --pod mypod \
-  --env-file .env.production \
-  myapp:latest
-```
-
-*Add other containers to the same pod if needed. All containers share the pod’s network.*
 
 ---
 
@@ -120,138 +77,83 @@ podman run -d --name app --pod mypod \
 
 ### **Step 1: Build and Push Image**
 
-Build the image and push it to a registry (Docker Hub, GitHub, etc.):
+Build and push your image to a registry.
 
-```bash
-docker build -t yourusername/myapp:latest .
-docker push yourusername/myapp:latest
+---
+
+### **Step 2: Organizing Manifests**
+
+- **Manifests can be split**: For maintainability, place each `Deployment`, `Service`, and Secret in a separate file
+  under a `k8s/` directory (e.g., `k8s/app-deployment.yaml`, `k8s/app-service.yaml`, etc.).
+- **Kustomize is recommended**: For larger, multi-environment setups,
+  use [Kustomize](https://kubectl.docs.kubernetes.io/references/kustomize/) to compose and patch manifests (
+  `k8s/kustomization.yaml`).
+
+  Example k8s directory:
+
+```textmate
+k8s/
+├── app-deployment.yaml
+├── app-service.yaml
+├── postgres-deployment.yaml
+├── postgres-service.yaml
+├── app-secret.yaml
+└── kustomization.yaml (optional)
 ```
 
-### **Step 2: Kubernetes Manifests**
+Apply manifests individually or all at once:
 
-**Example deployment for app and Postgres:**
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: app
-  template:
-    metadata:
-      labels:
-        app: app
-    spec:
-      containers:
-        - name: app
-          image: yourusername/myapp:latest
-          envFrom:
-            - secretRef:
-                name: app-env
-          ports:
-            - containerPort: 8000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: app
-spec:
-  ports:
-    - port: 8000
-  selector:
-    app: app
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: postgres
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: postgres
-  template:
-    metadata:
-      labels:
-        app: postgres
-    spec:
-      containers:
-        - name: postgres
-          image: postgres:16
-          env:
-            - name: POSTGRES_DB
-              value: mydb
-            - name: POSTGRES_USER
-              value: myuser
-            - name: POSTGRES_PASSWORD
-              value: mysecretpassword
-          ports:
-            - containerPort: 5432
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres
-spec:
-  ports:
-    - port: 5432
-  selector:
-    app: postgres
-```
-
-**Configure Secrets:**  
-Create a secret (holds environment variables like database credentials):
-
-```bash
-kubectl create secret generic app-env --from-env-file=.env.production
-```
-
-**Apply changes:**
-
-```bash
+```shell
 kubectl apply -f k8s/
+# or, for Kustomize
+kubectl apply -k k8s/
 ```
 
-*Replace image names, ports, secrets, etc. as needed for your environment.*
+Verify resource creation and pod status:
+
+```shell
+kubectl get pods
+kubectl get deployments
+kubectl get services
+```
 
 ---
 
-## 6. **If You Want To Add More Services**
+## 6. **Adding More Services**
 
 - **Docker Compose / Podman Compose:**  
-  Add new service blocks.
+  Add new service blocks to your compose YAML.
 - **Podman Pod:**  
   Use `podman run ... --pod mypod` for each new container.
 - **Kubernetes:**  
-  Add new Deployment and Service resources (or StatefulSets if persistent storage is required).
+  Add more Deployment and Service YAMLs under `k8s/` and apply with `kubectl apply -f` or manage with Kustomize.
 
 ---
 
 ## 7. **Notes**
 
-- **Database host** in your app config should match the service name. For Compose, use the `service` name, for Podman
-  pod, use `localhost`, and for Kubernetes, the service DNS name.
-- **Environment configuration** is always passed via `.env.production` (or a secret in Kubernetes).
-- **Persistence:**  
-  For databases, mount a volume in Docker Compose/Podman or use a PersistentVolume in Kubernetes.
+- Set your database host in the app config to match the service name. (Compose: the `service` name; Podman: `localhost`;
+  Kubernetes: the service DNS name)
+- Always pass environment configuration via `.env.production` (or a secret in Kubernetes).
+- For persistence, mount a volume in Compose/Podman or use a PersistentVolume in Kubernetes.
 
 ---
 
 ## 8. **Troubleshooting**
 
-- Check container logs:  
-  `docker logs <container_name>` or `podman logs <container_name>`
-- View Kubernetes pod logs:  
-  `kubectl logs <pod_name>`
-- Ensure all containers are healthy before testing the application.
+- **Check status of containers/pods:**
+    - `docker ps`
+    - `podman ps`
+    - `kubectl get pods`
+- **Check logs:**
+    - `docker logs <container_name>`
+    - `podman logs <container_name>`
+    - `kubectl logs <pod_name>`
+- Ensure all services are running and healthy before testing the application.
 
 ---
 
 **Summary:**  
-To containerize or extend this project, update the compose or Kubernetes manifests as above, pass configuration via
-environment/secret, and follow the build/run/apply steps with your chosen tool. Adjust service names and ports as
-needed—containerization makes the project easily composable in local and cloud workflows.
+To run or extend this project with containers, adjust your compose or Kubernetes manifests as needed, pass config via
+environment/secret, check container or pod status, and follow your preferred tool’s workflow. Organizing manifests and
+using Kustomize as your setup grows improves long-term maintainability.
