@@ -1,8 +1,3 @@
-Here is an improved version of your documentation with the requested enhancements for maintainability and
-troubleshooting.
-
----
-
 # Running and Extending This Project with Containers
 
 ## 1. **How This Project Uses Containerization**
@@ -141,7 +136,7 @@ kubectl get services
 
 ## 8. **Troubleshooting**
 
-- **Check status of containers/pods:**
+- **Check the status of containers/pods:**
     - `docker ps`
     - `podman ps`
     - `kubectl get pods`
