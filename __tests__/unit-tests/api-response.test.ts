@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { ApiResponse } from "../../src/utils/ApiResponse.ts";
+import { ApiResponse } from "../../src/utils/api-response.ts";
 
 describe("ApiResponse Unit Tests", () => {
   test("should default success to true and require data", () => {

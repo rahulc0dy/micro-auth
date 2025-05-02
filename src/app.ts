@@ -1,14 +1,17 @@
+import { swaggerUI } from "@hono/swagger-ui";
 import { Hono } from "hono";
 import { timing } from "hono/timing";
 import { rateLimiter } from "hono-rate-limiter";
 
 import { NODE_ENV, RATE_LIMIT, RATE_LIMIT_WINDOW } from "./env.ts";
-import { reqLogMiddleware } from "./middlewares/requestLog.middleware.ts";
+import { reqLogMiddleware } from "./middlewares/request-logger.middleware.ts";
 import { registerV1Routes } from "./routes/v1/routes.config.ts";
-import errorHandler from "./utils/errorHandler.ts";
-import { keyGenerator } from "./utils/keyGenerator.ts";
+import errorHandler from "./utils/error-handler.ts";
+import { keyGenerator } from "./utils/key-generator.ts";
 
 const app = new Hono();
+
+app.get("/ui", swaggerUI({ url: "/api/v1/health-check" }));
 
 app.use(timing());
 

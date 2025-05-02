@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { keyGenerator } from "../../src/utils/keyGenerator";
+import { keyGenerator } from "../../src/utils/key-generator.ts";
 
 describe("keyGenerator", () => {
   test("should use X-Forwarded-For IP when available", () => {

@@ -1,21 +1,13 @@
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import type { Context } from "hono";
-import { z } from "zod";
 
-import { STATUS } from "../../constants/statusCodes.ts";
+import { STATUS } from "../../constants/status-codes.ts";
 import { db } from "../../database";
 import { users } from "../../database/schemas/users.ts";
-import { ApiError } from "../../utils/ApiError.ts";
-import { ApiResponse } from "../../utils/ApiResponse.ts";
-
-const EmailPassLoginSchema = z.object({
-  email: z.string().email().nonempty(),
-  password: z
-    .string()
-    .min(6, "Password must be at least 6 characters long")
-    .nonempty(),
-});
+import { EmailPassLoginSchema } from "../../schemas/request-schemas.ts";
+import { ApiError } from "../../utils/api-error.ts";
+import { ApiResponse } from "../../utils/api-response.ts";
 
 export const emailPassLoginController = async (c: Context) => {
   const body = await c.req.parseBody();
