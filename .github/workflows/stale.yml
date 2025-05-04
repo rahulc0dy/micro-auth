@@ -41,8 +41,8 @@ jobs:
           stale-pr-label: "stale"
 
           # Exclude specific labels or milestones
-          exempt-issue-labels: "pinned,backlog,help-wanted,good-first-issue" # Issues with these labels are never marked stale
-          exempt-pr-labels: "in-progress,work-in-progress,help-wanted" # PRs with these labels are excluded
+          exempt-issue-labels: "pinned,backlog,help wanted,good first issue" # Issues with these labels are never marked stale
+          exempt-pr-labels: "in progress,work in progress,help wanted" # PRs with these labels are excluded
           exempt-milestones: "v1.0.0" # Items with these milestones are excluded
 
           close-issue-label: "wontfix" # Label to mark the closed issue
