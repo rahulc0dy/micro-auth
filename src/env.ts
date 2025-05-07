@@ -16,6 +16,7 @@ export const {
   RATE_LIMIT,
   RATE_LIMIT_WINDOW,
   SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN,
+  SECURE_API_KEY,
 } = createEnv({
   server: {
     PORT: z
@@ -43,6 +44,7 @@ export const {
       .transform((w) => parseInt(w)),
     DATABASE_URL: z.string().url(),
     SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: z.string().min(10),
+    SECURE_API_KEY: z.string().uuid("Invalid API key."),
   },
 
   /**
