@@ -16,7 +16,7 @@ export const headerAuthMiddleware = async (c: Context, next: Next) => {
           "Unauthorized access to sensitive data. Please provide a valid key.",
         errors: [{ message: "Invalid or missing authorisation key" }],
       }),
-      STATUS.CLIENT_ERROR.BAD_REQUEST
+      STATUS.CLIENT_ERROR.UNAUTHORIZED
     );
   }
 
