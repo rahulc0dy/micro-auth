@@ -26,25 +26,36 @@ export const {
     NODE_ENV: z
       .enum(["production", "development", "test"])
       .optional()
-      .default("development"),
+      .default("development")
+      .readonly(),
     LOG_LEVEL: z
       .enum(["error", "info", "warn", "debug", "http", "verbose", "silly"])
       .optional()
-      .default("info"),
-    LOG_DIR: z.string().optional().default("logs"),
+      .default("info")
+      .readonly(),
+    LOG_DIR: z.string().optional().default("logs").readonly(),
     RATE_LIMIT: z
       .string()
       .optional()
       .default("100")
-      .transform((l) => parseInt(l)),
+      .transform((l) => parseInt(l))
+      .readonly(),
     RATE_LIMIT_WINDOW: z
       .string()
       .optional()
       .default("600000")
-      .transform((w) => parseInt(w)),
-    DATABASE_URL: z.string().url(),
-    SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: z.string().min(10),
-    SECURE_API_KEY: z.string().uuid("Invalid API key."),
+      .transform((w) => parseInt(w))
+      .readonly(),
+    DATABASE_URL: z.string().url().readonly(),
+    SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: z
+      .string()
+      .min(10, "Token too weak. Please use stronger token for security.")
+      .readonly(),
+    SECURE_API_KEY: z
+      .string()
+      .uuid("Invalid API key. Not a UUID!")
+      .nonempty()
+      .readonly(),
   },
 
   /**
@@ -57,7 +68,13 @@ export const {
 
   // Called when the schema validation fails.
   onValidationError: (issues: readonly ZodIssue[]) => {
-    console.error("❌ Invalid environment variables:", issues);
-    throw new Error("Invalid environment variables");
+    console.error(
+      "⟬ ENV ERROR ⟭ Invalid environment variables:\n",
+      issues
+        .map((issue) => `↳ ${issue.path}: ${issue.message.toString()}`)
+        .join("\n")
+    );
+    process.exit(1);
+    // throw new Error("Invalid environment variables");
   },
 });

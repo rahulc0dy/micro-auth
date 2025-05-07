@@ -58,6 +58,7 @@ jobs:
           PORT: ${{ secrets.PORT }}
           NODE_ENV: test
           SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: valid_dummy_token
+          SECURE_API_KEY: ${{ secrets.SECURE_API_KEY }}
         run: bun drizzle-kit push && bun test "__tests__/e2e-tests"
 
   unit-tests:
@@ -84,4 +85,5 @@ jobs:
           PORT: ${{ secrets.PORT }}
           NODE_ENV: test
           SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: valid_dummy_token
+          SECURE_API_KEY: ${{ secrets.SECURE_API_KEY }}
         run: bun test "__tests__/unit-tests"

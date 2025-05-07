@@ -7,7 +7,7 @@ import { ApiResponse } from "../utils/api-response.ts";
 export const headerAuthMiddleware = async (c: Context, next: Next) => {
   const secureKey = SECURE_API_KEY;
 
-  const headerToken = c.req.header("x-sensitive-data-authorization-token");
+  const headerToken = c.req.header("x-secure-api-key");
   if (!headerToken || headerToken !== secureKey) {
     return c.json(
       new ApiResponse({
