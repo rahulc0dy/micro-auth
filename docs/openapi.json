@@ -11,6 +11,11 @@
       "description": "Local server"
     }
   ],
+  "security": [
+    {
+      "apiKeyAuth": []
+    }
+  ],
   "paths": {
     "/auth/register": {
       "post": {
@@ -212,6 +217,12 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
+      },
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-secure-api-key",
+        "description": "API key for accessing protected endpoints"
       }
     }
   }
