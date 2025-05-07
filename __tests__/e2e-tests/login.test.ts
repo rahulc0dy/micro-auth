@@ -1,8 +1,23 @@
 import { beforeAll, describe, expect, test } from "bun:test";
 
 import app from "../../src/app.ts";
+import { SECURE_API_KEY } from "../../src/env.ts";
 
 const urlPrefix = "/api/v1";
+
+const loginRequest = (
+  body: URLSearchParams,
+  url = "/api/v1/login/email-pass"
+) => {
+  return app.request(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "x-secure-api-key": SECURE_API_KEY,
+    },
+    body: body.toString(),
+  });
+};
 
 describe("Login", () => {
   // Create a test user that we can use for login tests
@@ -18,15 +33,9 @@ describe("Login", () => {
       password: testPassword,
     });
 
-    const registerResponse = await app.request(
-      `${urlPrefix}/register/email-pass`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: registrationFormData.toString(),
-      }
+    const registerResponse = await loginRequest(
+      registrationFormData,
+      `${urlPrefix}/register/email-pass`
     );
 
     const registerJson = await registerResponse.json();
@@ -40,13 +49,7 @@ describe("Login", () => {
       password: testPassword,
     });
 
-    const res = await app.request(`${urlPrefix}/login/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await loginRequest(formData);
 
     const jsonResponse = await res.json();
     expect(res.status).toBe(200);
@@ -61,13 +64,7 @@ describe("Login", () => {
       password: "somepassword",
     });
 
-    const res = await app.request(`${urlPrefix}/login/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await loginRequest(formData);
 
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
@@ -83,13 +80,7 @@ describe("Login", () => {
       password: "wrong_password",
     });
 
-    const res = await app.request(`${urlPrefix}/login/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await loginRequest(formData);
 
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
@@ -108,13 +99,7 @@ describe("Login", () => {
       password: "somepassword",
     });
 
-    const res = await app.request(`${urlPrefix}/login/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await loginRequest(formData);
 
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
@@ -134,13 +119,7 @@ describe("Login", () => {
       email: testEmail,
     });
 
-    const res = await app.request(`${urlPrefix}/login/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await loginRequest(formData);
 
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
@@ -161,13 +140,7 @@ describe("Login", () => {
       password: "somepassword",
     });
 
-    const res = await app.request(`${urlPrefix}/login/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await loginRequest(formData);
 
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
@@ -185,13 +158,7 @@ describe("Login", () => {
   test("POST /login/email-pass with empty payload", async () => {
     const formData = new URLSearchParams({});
 
-    const res = await app.request(`${urlPrefix}/login/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await loginRequest(formData);
 
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
