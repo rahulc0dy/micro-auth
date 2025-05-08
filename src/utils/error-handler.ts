@@ -1,10 +1,10 @@
 import type { Context } from "hono";
 import { z } from "zod";
 
-import { STATUS } from "../constants/statusCodes.ts";
+import { STATUS } from "../constants/status-codes.ts";
 import { NODE_ENV } from "../env.ts";
-import { ApiError } from "./ApiError.ts";
-import { ApiResponse } from "./ApiResponse.ts";
+import { ApiError } from "./api-error.ts";
+import { ApiResponse } from "./api-response.ts";
 import logger from "./logger.ts";
 
 const errorHandler = (err: unknown, c: Context) => {

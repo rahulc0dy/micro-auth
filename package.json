@@ -36,6 +36,8 @@
     "start": "bun index.ts"
   },
   "dependencies": {
+    "@hono/swagger-ui": "^0.5.1",
+    "@hono/zod-openapi": "^0.19.6",
     "@t3-oss/env-core": "^0.12.0",
     "bcryptjs": "^3.0.2",
     "chalk": "^5.4.1",

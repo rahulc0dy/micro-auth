@@ -1,19 +1,13 @@
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import type { Context } from "hono";
-import { z } from "zod";
 
-import { STATUS } from "../../constants/statusCodes.ts";
+import { STATUS } from "../../constants/status-codes.ts";
 import { db } from "../../database";
 import { users } from "../../database/schemas/users.ts";
-import { ApiError } from "../../utils/ApiError.ts";
-import { ApiResponse } from "../../utils/ApiResponse.ts";
-
-const EmailPasswordRegistrationSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
-});
+import { EmailPasswordRegistrationSchema } from "../../schemas/request-schemas.ts";
+import { ApiError } from "../../utils/api-error.ts";
+import { ApiResponse } from "../../utils/api-response.ts";
 
 export const registrationController = async (c: Context) => {
   const body = await c.req.parseBody();

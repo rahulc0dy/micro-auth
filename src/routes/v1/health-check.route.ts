@@ -5,7 +5,7 @@ import {
   serverHealthCheckController,
   serverInfoController,
 } from "../../controllers/v1/health-check.controller.ts";
-import { checkAuthorisationHeaders } from "../../middlewares/sensitiveAuthorization.middleware.ts";
+import { checkAuthorisationHeaders } from "../../middlewares/sensitive-authorization.middleware.ts";
 
 const healthCheckRouter = new Hono();
 

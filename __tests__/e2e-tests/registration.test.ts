@@ -1,8 +1,23 @@
 import { describe, expect, test } from "bun:test";
 
 import app from "../../src/app.ts";
+import { SECURE_API_KEY } from "../../src/env.ts";
 
 const urlPrefix = "/api/v1";
+
+const registrationRequest = (
+  body: URLSearchParams,
+  url = "/api/v1/register/email-pass"
+) => {
+  return app.request(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "x-secure-api-key": SECURE_API_KEY,
+    },
+    body: body.toString(),
+  });
+};
 
 describe("Registration", () => {
   test("POST /register/email-pass with valid data", async () => {
@@ -11,13 +26,7 @@ describe("Registration", () => {
       email: `test${Date.now()}@example.com`,
       password: "test@example",
     });
-    const res = await app.request(`${urlPrefix}/register/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await registrationRequest(formData);
     const jsonResponse = await res.json();
     expect(res.status).toBe(201);
     expect(jsonResponse.success).toBe(true);
@@ -28,13 +37,7 @@ describe("Registration", () => {
       name: "test name",
       password: "test@example",
     });
-    const res = await app.request(`${urlPrefix}/register/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await registrationRequest(formData);
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
     expect(jsonResponse.success).toBe(false);
@@ -52,13 +55,7 @@ describe("Registration", () => {
       email: "invalid-email",
       password: "test@example",
     });
-    const res = await app.request(`${urlPrefix}/register/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await registrationRequest(formData);
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
     expect(jsonResponse.success).toBe(false);
@@ -72,13 +69,7 @@ describe("Registration", () => {
 
   test("POST /register/email-pass with empty payload", async () => {
     const formData = new URLSearchParams({});
-    const res = await app.request(`${urlPrefix}/register/email-pass`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData.toString(),
-    });
+    const res = await registrationRequest(formData);
     const jsonResponse = await res.json();
     expect(res.status).toBe(400); // Bad Request
     expect(jsonResponse.success).toBe(false);

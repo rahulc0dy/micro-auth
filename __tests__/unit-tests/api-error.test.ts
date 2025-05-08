@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
-import { STATUS } from "../../src/constants/statusCodes.ts";
-import { ApiError } from "../../src/utils/ApiError.ts";
+import { STATUS } from "../../src/constants/status-codes.ts";
+import { ApiError } from "../../src/utils/api-error.ts";
 
 describe("ApiError", () => {
   test("should create an ApiError with object constructor", () => {
