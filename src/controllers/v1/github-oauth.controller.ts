@@ -1,0 +1,80 @@
+import type { Context } from "hono";
+
+import {
+  GITHUB_CALLBACK_URL,
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+} from "../../env.ts";
+import { ApiError } from "../../utils/api-error.ts";
+import { ApiResponse } from "../../utils/api-response.ts";
+
+export const githubOuthRedirect = async (c: Context) => {
+  const params = new URLSearchParams({
+    client_id: GITHUB_CLIENT_ID,
+    redirect_uri: GITHUB_CALLBACK_URL,
+    scope: "user:email",
+    allow_signup: "true",
+  });
+
+  return c.redirect(
+    `https://github.com/login/oauth/authorize?${params.toString()}`
+  );
+};
+
+export const githubOuthCallback = async (c: Context) => {
+  const code = c.req.query("code");
+
+  if (!code)
+    throw new ApiError({
+      message: "No code provided",
+      statusCode: 400,
+      errors: [{ message: "No code provided", field: "code" }],
+    });
+
+  const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      client_id: GITHUB_CLIENT_ID,
+      client_secret: GITHUB_CLIENT_SECRET,
+      code,
+      redirect_uri: GITHUB_CALLBACK_URL,
+    }),
+  });
+
+  const tokenData = await tokenRes.json();
+  const accessToken = tokenData.access_token;
+  if (!accessToken)
+    throw new ApiError({
+      message: "No access token provided",
+      statusCode: 400,
+      errors: [{ message: "No access token provided", field: "access_token" }],
+    });
+
+  const userRes = await fetch("https://api.github.com/user", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+    },
+  });
+
+  const userData = await userRes.json();
+  const user = {
+    id: userData.id,
+    name: userData.name,
+    email: userData.email,
+    avatar: userData.avatar_url,
+  };
+
+  return c.json(
+    new ApiResponse({
+      message: "User authenticated",
+      data: {
+        user,
+      },
+    })
+  );
+};
