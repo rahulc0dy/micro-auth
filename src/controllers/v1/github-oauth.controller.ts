@@ -8,7 +8,7 @@ import {
 import { ApiError } from "../../utils/api-error.ts";
 import { ApiResponse } from "../../utils/api-response.ts";
 
-export const githubOuthRedirect = async (c: Context) => {
+export const githubOAuthRedirect = async (c: Context) => {
   const params = new URLSearchParams({
     client_id: GITHUB_CLIENT_ID,
     redirect_uri: GITHUB_CALLBACK_URL,
@@ -21,7 +21,7 @@ export const githubOuthRedirect = async (c: Context) => {
   );
 };
 
-export const githubOuthCallback = async (c: Context) => {
+export const githubOauthCallback = async (c: Context) => {
   const code = c.req.query("code");
 
   if (!code)
@@ -45,7 +45,26 @@ export const githubOuthCallback = async (c: Context) => {
     }),
   });
 
+  if (!tokenRes.ok) {
+    throw new ApiError({
+      message: "Failed to exchange code for token",
+      statusCode: 500,
+      errors: [
+        { message: `GitHub API error: ${tokenRes.status}`, field: "oauth" },
+      ],
+    });
+  }
+
   const tokenData = await tokenRes.json();
+
+  if (tokenData.error) {
+    throw new ApiError({
+      message: tokenData.error_description || "OAuth error",
+      statusCode: 400,
+      errors: [{ message: tokenData.error, field: "oauth" }],
+    });
+  }
+
   const accessToken = tokenData.access_token;
   if (!accessToken)
     throw new ApiError({
@@ -61,11 +80,30 @@ export const githubOuthCallback = async (c: Context) => {
     },
   });
 
+  if (!userRes.ok) {
+    throw new ApiError({
+      message: "Failed to fetch user data",
+      statusCode: 500,
+      errors: [
+        { message: `GitHub API error: ${userRes.status}`, field: "user" },
+      ],
+    });
+  }
+
   const userData = await userRes.json();
+
+  if (!userData.id) {
+    throw new ApiError({
+      message: "Invalid user data received",
+      statusCode: 500,
+      errors: [{ message: "Missing user ID", field: "user" }],
+    });
+  }
+
   const user = {
     id: userData.id,
     name: userData.name,
-    email: userData.email,
+    email: userData.email || null, // email may be private, so we can't rely on it'
     avatar: userData.avatar_url,
   };
 
