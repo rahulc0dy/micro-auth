@@ -1,6 +1,10 @@
+import crypto from "node:crypto";
+
 import type { Context } from "hono";
+import { getSignedCookie, setSignedCookie } from "hono/cookie";
 
 import {
+  COOKIE_SECRET,
   GITHUB_CALLBACK_URL,
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
@@ -9,12 +13,16 @@ import { ApiError } from "../../utils/api-error.ts";
 import { ApiResponse } from "../../utils/api-response.ts";
 
 export const githubOAuthRedirect = async (c: Context) => {
+  const state = crypto.randomUUID();
+
   const params = new URLSearchParams({
     client_id: GITHUB_CLIENT_ID,
     redirect_uri: GITHUB_CALLBACK_URL,
     scope: "user:email",
     allow_signup: "true",
   });
+
+  await setSignedCookie(c, "github-oauth-state", state, COOKIE_SECRET);
 
   return c.redirect(
     `https://github.com/login/oauth/authorize?${params.toString()}`
@@ -23,6 +31,24 @@ export const githubOAuthRedirect = async (c: Context) => {
 
 export const githubOauthCallback = async (c: Context) => {
   const code = c.req.query("code");
+  const state = c.req.query("state");
+  const expectedState = await getSignedCookie(
+    c,
+    COOKIE_SECRET,
+    "github-oauth-state"
+  );
+
+  if (!state || !expectedState || state !== expectedState)
+    throw new ApiError({
+      message: "Invalid or missing state",
+      statusCode: 400,
+      errors: [
+        {
+          message: "State validation failed. Possible CSRF detected.",
+          field: "state",
+        },
+      ],
+    });
 
   if (!code)
     throw new ApiError({
