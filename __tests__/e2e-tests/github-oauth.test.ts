@@ -2,8 +2,8 @@ import { afterEach, describe, expect, spyOn, test } from "bun:test";
 import app from "../../src/app.ts";
 
 // Adjust these if your endpoints are prefixed (e.g., "/api/v1/oauth/github")
-const OAUTH_REDIRECT = "/oauth/github";
-const OAUTH_CALLBACK = "/oauth/callback";
+const OAUTH_REDIRECT = "/api/v1/oauth/github";
+const OAUTH_CALLBACK = "/api/v1/oauth/github/callback";
 
 afterEach(() => {
   // Restore all spies/mocks between tests
