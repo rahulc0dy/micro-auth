@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import type { Context } from "hono";
 import { getSignedCookie, setSignedCookie } from "hono/cookie";
 
+import { STATUS } from "../../constants/status-codes.ts";
 import {
   COOKIE_SECRET,
   GITHUB_CALLBACK_URL,
@@ -41,7 +42,7 @@ export const githubOauthCallback = async (c: Context) => {
   if (!state || !expectedState || state !== expectedState)
     throw new ApiError({
       message: "Invalid or missing state",
-      statusCode: 400,
+      statusCode: STATUS.CLIENT_ERROR.BAD_REQUEST,
       errors: [
         {
           message: "State validation failed. Possible CSRF detected.",
@@ -53,7 +54,7 @@ export const githubOauthCallback = async (c: Context) => {
   if (!code)
     throw new ApiError({
       message: "No code provided",
-      statusCode: 400,
+      statusCode: STATUS.CLIENT_ERROR.BAD_REQUEST,
       errors: [{ message: "No code provided", field: "code" }],
     });
 
@@ -74,7 +75,7 @@ export const githubOauthCallback = async (c: Context) => {
   if (!tokenRes.ok) {
     throw new ApiError({
       message: "Failed to exchange code for token",
-      statusCode: 500,
+      statusCode: STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR,
       errors: [
         { message: `GitHub API error: ${tokenRes.status}`, field: "oauth" },
       ],
@@ -86,7 +87,7 @@ export const githubOauthCallback = async (c: Context) => {
   if (tokenData.error) {
     throw new ApiError({
       message: tokenData.error_description || "OAuth error",
-      statusCode: 400,
+      statusCode: STATUS.CLIENT_ERROR.BAD_REQUEST,
       errors: [{ message: tokenData.error, field: "oauth" }],
     });
   }
@@ -95,7 +96,7 @@ export const githubOauthCallback = async (c: Context) => {
   if (!accessToken)
     throw new ApiError({
       message: "No access token provided",
-      statusCode: 400,
+      statusCode: STATUS.CLIENT_ERROR.BAD_REQUEST,
       errors: [{ message: "No access token provided", field: "access_token" }],
     });
 
@@ -109,7 +110,7 @@ export const githubOauthCallback = async (c: Context) => {
   if (!userRes.ok) {
     throw new ApiError({
       message: "Failed to fetch user data",
-      statusCode: 500,
+      statusCode: STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR,
       errors: [
         { message: `GitHub API error: ${userRes.status}`, field: "user" },
       ],
@@ -121,7 +122,7 @@ export const githubOauthCallback = async (c: Context) => {
   if (!userData.id) {
     throw new ApiError({
       message: "Invalid user data received",
-      statusCode: 500,
+      statusCode: STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR,
       errors: [{ message: "Missing user ID", field: "user" }],
     });
   }
