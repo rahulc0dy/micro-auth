@@ -59,6 +59,10 @@ jobs:
           NODE_ENV: test
           SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: valid_dummy_token
           SECURE_API_KEY: ${{ secrets.SECURE_API_KEY }}
+          GITHUB_CLIENT_ID: ${{ secrets.GAUTH_CLIENT_ID }}
+          GITHUB_CLIENT_SECRET: ${{ secrets.GAUTH_CLIENT_SECRET }}
+          GITHUB_CALLBACK_URL: ${{ secrets.GAUTH_REDIRECT_URI }}
+          COOKIE_SECRET: dummy-cookie-secret
         run: bun drizzle-kit push && bun test "__tests__/e2e-tests"
 
   unit-tests:
@@ -86,4 +90,8 @@ jobs:
           NODE_ENV: test
           SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN: valid_dummy_token
           SECURE_API_KEY: ${{ secrets.SECURE_API_KEY }}
+          GITHUB_CLIENT_ID: random_clinet_dummy_id
+          GITHUB_CLIENT_SECRET: dummy_client_secret
+          GITHUB_CALLBACK_URL: "http://localhost:8000"
+          COOKIE_SECRET: dummy-cookie-secret
         run: bun test "__tests__/unit-tests"

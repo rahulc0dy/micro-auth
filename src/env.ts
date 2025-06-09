@@ -17,6 +17,10 @@ export const {
   RATE_LIMIT_WINDOW,
   SENSITIVE_SERVER_DATA_AUTHORIZATION_TOKEN,
   SECURE_API_KEY,
+  GITHUB_CLIENT_ID,
+  GITHUB_CALLBACK_URL,
+  GITHUB_CLIENT_SECRET,
+  COOKIE_SECRET,
 } = createEnv({
   server: {
     PORT: z
@@ -56,6 +60,10 @@ export const {
       .uuid("Invalid API key. Not a UUID!")
       .nonempty()
       .readonly(),
+    GITHUB_CLIENT_ID: z.string().nonempty().readonly(),
+    GITHUB_CLIENT_SECRET: z.string().nonempty().readonly(),
+    GITHUB_CALLBACK_URL: z.string().url().nonempty().readonly(),
+    COOKIE_SECRET: z.string().nonempty().min(10).readonly(),
   },
 
   /**
